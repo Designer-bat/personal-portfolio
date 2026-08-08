@@ -1,0 +1,33 @@
+name: Preview (pull_request)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install
+        run: npm ci --prefer-offline --no-audit || npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Export (static)
+        run: npm run export || true
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-out
+          path: out/

@@ -55,3 +55,16 @@ Feel free to open issues or PRs. For local changes, follow the development steps
 
 See the project `LICENSE` file for license details.
 
+## Badges
+
+- Build: ![CI](https://github.com/Designer-bat/personal-portfolio/actions/workflows/ci.yml/badge.svg)
+- Deploy: ![Deploy](https://github.com/Designer-bat/personal-portfolio/actions/workflows/deploy-pages.yml/badge.svg)
+- License: ![License](https://img.shields.io/github/license/Designer-bat/personal-portfolio.svg)
+
+## Screenshots
+
+Add screenshots by placing images in `public/images/` and reference them below.
+
+![Screenshot](public/images/screenshot.png)
+
+
