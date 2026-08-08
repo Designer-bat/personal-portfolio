@@ -1,20 +1,71 @@
 import {
-  Heading,
-  Text,
-  Button,
   Avatar,
-  RevealFx,
-  Column,
   Badge,
+  Button,
+  Column,
+  Heading,
+  Meta,
+  RevealFx,
   Row,
   Schema,
-  Meta,
-  Line,
+  Tag,
+  Text,
 } from "@once-ui-system/core";
-import { home, about, person, baseURL, routes } from "@/resources";
-import { Mailchimp } from "@/components";
+import { baseURL, home, person, social } from "@/resources";
 import { Projects } from "@/components/work/Projects";
-import { Posts } from "@/components/blog/Posts";
+
+const projectGallery = [
+  {
+    name: "ecommerce-website",
+    category: "Product UI • Frontend",
+    description: "A polished clothing storefront experience with a conversion-oriented flow and a practical admin layer.",
+    tags: ["UI", "Frontend", "JavaScript"],
+    github: "https://github.com/Designer-bat/ecommerce-website",
+    behance: "https://www.behance.net/Rameshtiwari_",
+    caseStudy: "/work",
+  },
+  {
+    name: "ProjectHamroEasyParking",
+    category: "UX • Dashboard",
+    description: "A smart parking management system focused on clarity, usability, and operational flow.",
+    tags: ["UX", "PHP", "Dashboard"],
+    github: "https://github.com/Designer-bat/ProjectHamroEasyParking",
+    behance: "https://www.behance.net/gallery/148785297/GADGET-GALLERY-ONLINE-STORE",
+    caseStudy: "/work",
+  },
+  {
+    name: "ProjectArtsphere",
+    category: "Brand • Experience",
+    description: "A digital space for artists and audiences designed around discovery, storytelling, and community.",
+    tags: ["Brand", "UI", "React"],
+    github: "https://github.com/Designer-bat/ProjectArtsphere",
+    behance: "https://www.behance.net/gallery/213986835/Novagrow-Brand-Identity",
+    caseStudy: "/work",
+  },
+];
+
+const services = [
+  "UI/UX Design",
+  "Website Design",
+  "Mobile App Design",
+  "Brand Identity",
+  "Graphic Design",
+  "Frontend Development",
+];
+
+const skillGroups = [
+  ["Design", "UI Design", "UX Design", "Graphic Design"],
+  ["Figma", "Adobe Photoshop", "Illustrator", "Brand Identity"],
+  ["React", "Next.js", "Tailwind", "JavaScript", "HTML", "CSS"],
+  ["PHP", "MySQL", "Git", "GitHub", "SEO", "Accessibility"],
+];
+
+const designHighlights = [
+  { title: "MAYUR Brand Identity & Visual System", category: "Branding" },
+  { title: "Novagrow Brand Identity", category: "Branding" },
+  { title: "GADGET GALLERY ONLINE STORE", category: "UI" },
+  { title: "Rebranding Kilowatt logo", category: "Logo" },
+];
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -28,7 +79,12 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <Column maxWidth="m" gap="xl" paddingY="12" horizontal="center">
+    <Column
+      fillWidth
+      horizontal="center"
+      gap="0"
+      className="portfolio-home"
+    >
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -38,93 +94,317 @@ export default function Home() {
         image={`/api/og/generate?title=${encodeURIComponent(home.title)}`}
         author={{
           name: person.name,
-          url: `${baseURL}${about.path}`,
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Column fillWidth horizontal="center" gap="m">
-        <Column maxWidth="s" horizontal="center" align="center">
-          {home.featured.display && (
-            <RevealFx
-              fillWidth
-              horizontal="center"
-              paddingTop="16"
-              paddingBottom="32"
-              paddingLeft="12"
-            >
-              <Badge
-                background="brand-alpha-weak"
-                paddingX="12"
-                paddingY="4"
-                onBackground="neutral-strong"
-                textVariant="label-default-s"
-                arrow={false}
-                href={home.featured.href}
+
+      {/* =========================
+          HERO
+      ========================= */}
+
+      <section className="reference-hero">
+        <div className="reference-hero-inner">
+
+          {/* LEFT CONTENT */}
+
+          <div className="reference-hero-content">
+
+            <div className="reference-eyebrow">
+              <span className="reference-dot" />
+              Available for freelance
+            </div>
+
+            <h1 className="reference-title" >
+               Ramesh Tiwari Designer
+              <br />
+              <span className="reference-accent">
+               & Developer.
+              </span>
+            </h1>
+
+            <p className="reference-description">
+              
+            I’m an undergraduate BIM student with a passion for development. 
+            As a developer and Designer, I enjoy turning ideas into creative 
+            and meaningful digital experiences. 
+            
+            </p>
+
+            <div className="reference-cta">
+              <input
+                type="email"
+                placeholder="Email address"
+                aria-label="Email address"
+              />
+
+              <a
+                href="#contact"
+                className="reference-button"
               >
-                <Row paddingY="2">{home.featured.title}</Row>
-              </Badge>
-            </RevealFx>
-          )}
-          <RevealFx translateY="4" fillWidth horizontal="center" paddingBottom="16">
-            <Heading wrap="balance" variant="display-strong-l">
-              {home.headline}
-            </Heading>
-          </RevealFx>
-          <RevealFx translateY="8" delay={0.2} fillWidth horizontal="center" paddingBottom="32">
-            <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
-              {home.subline}
-            </Text>
-          </RevealFx>
-          <RevealFx paddingTop="12" delay={0.4} horizontal="center" paddingLeft="12">
-            <Button
-              id="about"
-              data-border="rounded"
-              href={about.path}
-              variant="secondary"
-              size="m"
-              weight="default"
-              arrowIcon
+                Connect With Me
+              </a>
+            </div>
+
+            <div className="reference-services">
+              <span>UI/UX Design</span>
+              <span>Brand Identity</span>
+              <span>Web Design</span>
+              <span>Frontend</span>
+            </div>
+
+          </div>
+
+
+          {/* RIGHT IMAGE */}
+
+          <div className="reference-hero-image">
+
+            <div className="reference-decoration decoration-1" />
+            <div className="reference-decoration decoration-2" />
+            <div className="reference-decoration decoration-3" />
+            <div className="reference-decoration decoration-4" />
+            <div className="reference-decoration decoration-5" />
+            <div className="reference-decoration decoration-6" />
+
+            <div className="reference-image-glow" />
+
+            <img
+              src={person.avatar}
+              alt={person.name}
+              className="reference-person"
+            />
+
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* =========================
+          ABOUT
+      ========================= */}
+
+      <section
+        id="about"
+        className="reference-section"
+      >
+        <div className="reference-section-label">
+          About
+        </div>
+
+        <h2>
+          I build products that feel considered,
+          elegant, and clear.
+        </h2>
+
+        <p>
+          I’m a multidisciplinary creative who enjoys
+          shaping both the product experience and the
+          visual language around it. My work blends
+          interface design, branding, and frontend craft.
+        </p>
+      </section>
+
+
+      {/* =========================
+          SKILLS
+      ========================= */}
+
+      <section
+        id="skills"
+        className="reference-section"
+      >
+        <div className="reference-section-label">
+          Skills
+        </div>
+
+        <h2>
+          Design, development and everything
+          in between.
+        </h2>
+
+        <div className="reference-tags">
+          {skillGroups.flat().map((skill) => (
+            <span key={skill}>
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+
+      {/* =========================
+          SERVICES
+      ========================= */}
+
+      <section
+        id="services"
+        className="reference-section"
+      >
+        <div className="reference-section-label">
+          Services
+        </div>
+
+        <h2>
+          What I can help you build.
+        </h2>
+
+        <div className="reference-service-grid">
+          {services.map((service) => (
+            <div
+              key={service}
+              className="reference-service"
             >
-              <Row gap="8" vertical="center" paddingRight="4">
-                {about.avatar.display && (
-                  <Avatar
-                    marginRight="8"
-                    style={{ marginLeft: "-0.75rem" }}
-                    src={person.avatar}
-                    size="m"
-                  />
-                )}
-                {about.title}
-              </Row>
-            </Button>
-          </RevealFx>
-        </Column>
-      </Column>
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
-      </RevealFx>
-      {routes["/blog"] && (
-        <Column fillWidth gap="24" marginBottom="l">
-          <Row fillWidth paddingRight="64">
-            <Line maxWidth={48} />
-          </Row>
-          <Row fillWidth gap="24" marginTop="40" s={{ direction: "column" }}>
-            <Row flex={1} paddingLeft="l" paddingTop="24">
-              <Heading as="h2" variant="display-strong-xs" wrap="balance">
-                Latest from the blog
-              </Heading>
-            </Row>
-            <Row flex={3} paddingX="20">
-              <Posts range={[1, 2]} columns="2" />
-            </Row>
-          </Row>
-          <Row fillWidth paddingLeft="64" horizontal="end">
-            <Line maxWidth={48} />
-          </Row>
-        </Column>
-      )}
-      <Projects range={[2]} />
-      <Mailchimp />
+              <h3>{service}</h3>
+
+              <p>
+                Thoughtful, practical and
+                conversion-focused execution.
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+      {/* =========================
+          PROJECTS
+      ========================= */}
+
+      <section
+        id="projects"
+        className="reference-section"
+      >
+        <div className="reference-section-label">
+          Projects 
+        </div>
+
+        <h2>
+          A selection of things I’ve designed
+          and built.
+        </h2>
+
+        <div className="reference-project-grid">
+          {projectGallery.map((project) => (
+            <div
+              key={project.name}
+              className="reference-project"
+            >
+              <span>
+                {project.category}
+              </span>
+
+              <h3>
+                {project.name}
+              </h3>
+
+              <p>
+                {project.description}
+              </p>
+
+              <div className="reference-project-tags">
+                {project.tags.map((tag) => (
+                  <small key={tag}>
+                    {tag}
+                  </small>
+                ))}
+              </div>
+
+              <div className="reference-project-links">
+                <a href={project.github}>
+                  GitHub
+                </a>
+
+                <a href={project.behance}>
+                  Behance
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+      {/* =========================
+          DESIGN
+      ========================= */}
+
+      <section
+        id="design"
+        className="reference-section"
+      >
+        <div className="reference-section-label">
+          Graphic Design
+        </div>
+
+        <h2>
+          Brand systems and visual storytelling.
+        </h2>
+
+        <div className="reference-project-grid">
+          {designHighlights.map((item) => (
+            <div
+              key={item.title}
+              className="reference-project"
+            >
+              <span>
+                {item.category}
+              </span>
+
+              <h3>
+                {item.title}
+              </h3>
+
+              <a
+                href="https://www.behance.net/Rameshtiwari_"
+                className="reference-text-link"
+              >
+                View Behance →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+      {/* =========================
+          CONTACT
+      ========================= */}
+
+      <section
+        id="contact"
+        className="reference-contact"
+      >
+        <div className="reference-section-label">
+          Contact
+        </div>
+
+        <h2>
+          Let’s build something
+          <br />
+          great together.
+        </h2>
+
+        <p>
+          Open to freelance collaborations,
+          product design conversations and
+          frontend-led design partnerships.
+        </p>
+
+        <div className="reference-contact-links">
+          <a href="https://www.linkedin.com/in/rameshtiwari-gd/">
+            LinkedIn
+          </a>
+
+          <a href="https://github.com/Designer-bat">
+            GitHub
+          </a>
+
+          <a href="https://www.behance.net/Rameshtiwari_">
+            Behance
+          </a>
+        </div>
+      </section>
+
     </Column>
   );
 }
