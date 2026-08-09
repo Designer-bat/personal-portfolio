@@ -45,7 +45,7 @@ npx @biomejs/biome format --write .
 
 Recommended: deploy on Vercel — connect the repository and use the default Next.js settings.
 
-Alternatively, build locally and serve the `.next` output on a Node server.
+This app uses Next.js API routes and runtime features, so it is not compatible with static export or GitHub Pages deployment.
 
 ## Contributing
 

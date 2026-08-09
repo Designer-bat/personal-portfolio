@@ -22,8 +22,8 @@ const nextConfig = {
     compiler: "modern",
     silenceDeprecations: ["legacy-js-api"],
   },
-  // Static export (for GitHub Pages) — set when you want to publish as static
-  output: 'export',
+  // This app relies on API routes and server/runtime features,
+  // so static HTML export is not compatible.
 };
 
 export default withMDX(nextConfig);
