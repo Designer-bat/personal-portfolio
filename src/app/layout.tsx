@@ -24,7 +24,6 @@ import {
 import {
   baseURL,
   effects,
-  fonts,
   style,
   dataStyle,
   home,
@@ -55,10 +54,10 @@ export default async function RootLayout({
       lang={person.locale ?? "en"}
       fillWidth
       className={classNames(
-        fonts.heading.variable,
-        fonts.body.variable,
-        fonts.label.variable,
-        fonts.code.variable,
+        "font-heading",
+        "font-body",
+        "font-label",
+        "font-code",
       )}
     >
       <head>

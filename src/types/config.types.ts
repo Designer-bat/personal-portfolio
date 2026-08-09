@@ -11,7 +11,10 @@ import {
   Theme,
   TransitionStyle,
 } from "@once-ui-system/core";
-import { NextFontWithVariable } from "next/dist/compiled/@next/font";
+
+export type FontConfig = {
+  variable: string;
+};
 
 /**
  * Display configuration for UI elements.
@@ -36,10 +39,10 @@ export type ProtectedRoutesConfig = Record<`/${string}`, boolean>;
  * Font configuration for each variant.
  */
 export type FontsConfig = {
-  heading: NextFontWithVariable;
-  body: NextFontWithVariable;
-  label: NextFontWithVariable;
-  code: NextFontWithVariable;
+  heading: FontConfig;
+  body: FontConfig;
+  label: FontConfig;
+  code: FontConfig;
 };
 
 /**
