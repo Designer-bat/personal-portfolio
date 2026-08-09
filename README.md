@@ -45,7 +45,7 @@ npx @biomejs/biome format --write .
 
 Recommended: deploy on Vercel — connect the repository and use the default Next.js settings.
 
-This app uses Next.js API routes and runtime features, so it is not compatible with static export or GitHub Pages deployment.
+This app uses Next.js API routes, runtime features, and server-side generation, so it is not compatible with static export, GitHub Pages, or a default Cloudflare/OpenNext worker deployment without a custom Cloudflare deployment configuration.
 
 ## Contributing
 
@@ -58,7 +58,6 @@ See the project `LICENSE` file for license details.
 ## Badges
 
 - Build: ![CI](https://github.com/Designer-bat/personal-portfolio/actions/workflows/ci.yml/badge.svg)
-- Deploy: ![Deploy](https://github.com/Designer-bat/personal-portfolio/actions/workflows/deploy-pages.yml/badge.svg)
 - License: ![License](https://img.shields.io/github/license/Designer-bat/personal-portfolio.svg)
 
 ## Screenshots
