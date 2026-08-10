@@ -43,9 +43,36 @@ npx @biomejs/biome format --write .
 
 ## Deployment
 
-Recommended: deploy on Vercel — connect the repository and use the default Next.js settings.
+This project supports deployment via GitHub Actions on Linux using Cloudflare Workers and OpenNext.
 
-This app uses Next.js API routes, runtime features, and server-side generation, so it is not compatible with static export, GitHub Pages, or a default Cloudflare/OpenNext worker deployment without a custom Cloudflare deployment configuration.
+### GitHub Actions deploy workflow
+A deploy workflow is available at `.github/workflows/deploy-cloudflare.yml`.
+
+#### Required secrets
+Set the following GitHub Actions secrets in your repository settings:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+Optional secrets:
+
+- `CLOUDFLARE_ZONE_ID`
+- `WRANGLER_ENV`
+
+#### How it works
+The workflow installs dependencies, runs:
+
+```bash
+npm run build
+```
+
+and then deploys with:
+
+```bash
+npx wrangler@latest deploy --account-id "$CLOUDFLARE_ACCOUNT_ID"
+```
+
+If `CLOUDFLARE_ZONE_ID` or `WRANGLER_ENV` are set, they are appended automatically.
 
 ## Contributing
 

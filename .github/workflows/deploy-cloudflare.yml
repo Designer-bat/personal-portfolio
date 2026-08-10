@@ -1,0 +1,43 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit || npm install
+
+      - name: Build app and OpenNext worker
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          WRANGLER_ENV: ${{ secrets.WRANGLER_ENV }}
+        run: |
+          deploy_cmd="npx wrangler@latest deploy --account-id \"$CLOUDFLARE_ACCOUNT_ID\""
+          if [ -n "$CLOUDFLARE_ZONE_ID" ]; then
+            deploy_cmd="$deploy_cmd --zone-id \"$CLOUDFLARE_ZONE_ID\""
+          fi
+          if [ -n "$WRANGLER_ENV" ]; then
+            deploy_cmd="$deploy_cmd --env \"$WRANGLER_ENV\""
+          fi
+          echo "Running: $deploy_cmd"
+          eval "$deploy_cmd"
