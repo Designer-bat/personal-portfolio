@@ -112,7 +112,7 @@ export default function Home() {
             </div>
 
             <h1 className="reference-title" >
-               Hi im Ramesh Tiwari
+               I'm Ramesh Tiwari
               <br />
               <span className="reference-accent">
                Designer & Developer.
