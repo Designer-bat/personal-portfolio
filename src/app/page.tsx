@@ -112,16 +112,16 @@ export default function Home() {
             </div>
 
             <h1 className="reference-title" >
-               Hi im Ramesh Tiwari Designer
+               Hi im Ramesh Tiwari
               <br />
               <span className="reference-accent">
-               & Developer.
+               Designer & Developer.
               </span>
             </h1>
 
             <p className="reference-description">
               
-            I’m an undergraduate BIM student with a passion for development. 
+            I’m an BIM student with a passion for development. 
             As a developer and Designer, I enjoy turning ideas into creative 
             and meaningful digital experiences. 
             
