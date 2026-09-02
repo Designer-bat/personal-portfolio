@@ -21,7 +21,6 @@ const projectGallery = [
     description: "A polished clothing storefront experience with a conversion-oriented flow and a practical admin layer.",
     tags: ["UI", "Frontend", "JavaScript"],
     github: "https://github.com/Designer-bat/ecommerce-website",
-    behance: "https://www.behance.net/Rameshtiwari_",
     caseStudy: "/work",
   },
   {
@@ -30,7 +29,6 @@ const projectGallery = [
     description: "A smart parking management system focused on clarity, usability, and operational flow.",
     tags: ["UX", "PHP", "Dashboard"],
     github: "https://github.com/Designer-bat/ProjectHamroEasyParking",
-    behance: "https://www.behance.net/gallery/148785297/GADGET-GALLERY-ONLINE-STORE",
     caseStudy: "/work",
   },
   {
@@ -39,18 +37,17 @@ const projectGallery = [
     description: "A digital space for artists and audiences designed around discovery, storytelling, and community.",
     tags: ["Brand", "UI", "React"],
     github: "https://github.com/Designer-bat/ProjectArtsphere",
-    behance: "https://www.behance.net/gallery/213986835/Novagrow-Brand-Identity",
     caseStudy: "/work",
   },
 ];
 
 const services = [
-  "UI/UX Design",
+  "Development",
   "Website Design",
   "Mobile App Design",
   "Brand Identity",
   "Graphic Design",
-  "Frontend Development",
+  "UI/UX Design",
 ];
 
 const skillGroups = [
@@ -115,7 +112,7 @@ export default function Home() {
             </div>
 
             <h1 className="reference-title" >
-               Ramesh Tiwari Designer
+               Hi im Ramesh Tiwari Designer
               <br />
               <span className="reference-accent">
                & Developer.
@@ -149,7 +146,7 @@ export default function Home() {
               <span>UI/UX Design</span>
               <span>Brand Identity</span>
               <span>Web Design</span>
-              <span>Frontend</span>
+              <span>Development</span>
             </div>
 
           </div>
@@ -315,8 +312,8 @@ export default function Home() {
                   GitHub
                 </a>
 
-                <a href={project.behance}>
-                  Behance
+                <a href={project.caseStudy}>
+                  Case Study
                 </a>
               </div>
             </div>
