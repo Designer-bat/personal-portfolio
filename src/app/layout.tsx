@@ -63,8 +63,7 @@ export default async function RootLayout({
       <head>
         <script
           id="theme-init"
-          dangerouslySetInnerHTML={{
-            __html: `
+        >{`
               (function () {
                 try {
                   const root = document.documentElement;
@@ -142,9 +141,7 @@ export default async function RootLayout({
                   );
                 }
               })();
-            `,
-          }}
-        />
+            `}</script>
       </head>
 
       <Providers>
