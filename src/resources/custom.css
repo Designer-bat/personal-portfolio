@@ -4,33 +4,89 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-body, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+
+  font-family:
+    var(
+      --font-body,
+      'Inter',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif
+    );
 }
+
 
 .font-heading {
-  --font-heading: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
+
 
 .font-body {
-  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
+
 
 .font-label {
-  --font-label: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-label:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
 }
 
+
 .font-code {
-  --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-code:
+    'JetBrains Mono',
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
 }
+
 
 code,
 kbd,
 samp,
 pre {
-  font-family: var(--font-code, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
+  font-family:
+    var(
+      --font-code,
+      'JetBrains Mono',
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      'Liberation Mono',
+      'Courier New',
+      monospace
+    );
 }
+
 
 *,
 *::before,
@@ -38,9 +94,12 @@ pre {
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
+
   min-width: 320px;
+
   overflow-x: hidden;
 }
 
@@ -51,10 +110,13 @@ body {
 
 .portfolio-home {
   width: 100%;
+
   max-width: 1440px;
+
   margin: 0 auto;
 
   position: relative;
+
   z-index: 1;
 }
 
@@ -69,10 +131,12 @@ body {
   padding: 0 32px 48px;
 }
 
+
 .reference-hero-inner {
   position: relative;
 
   width: 100%;
+
   min-height: 620px;
 
   display: grid;
@@ -115,10 +179,13 @@ body {
 
 .reference-hero-content {
   position: relative;
+
   z-index: 5;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
 
   padding:
@@ -133,6 +200,7 @@ body {
 
 .reference-eyebrow {
   display: flex;
+
   align-items: center;
 
   gap: 8px;
@@ -140,13 +208,22 @@ body {
   margin-bottom: 24px;
 
   font-size: 12px;
+
   font-weight: 600;
 
-  color: rgba(226, 232, 240, 0.65);
+  color:
+    rgba(
+      226,
+      232,
+      240,
+      0.65
+    );
 }
+
 
 .reference-dot {
   width: 7px;
+
   height: 7px;
 
   border-radius: 50%;
@@ -183,6 +260,7 @@ body {
 
   color: #f8fafc;
 }
+
 
 .reference-accent {
   color: #818cf8;
@@ -229,6 +307,7 @@ body {
   align-items: stretch;
 
   width: 100%;
+
   max-width: 410px;
 
   margin-bottom: 26px;
@@ -238,8 +317,14 @@ body {
   overflow: hidden;
 
   border: 1px solid
-    rgba(148, 163, 184, 0.12);
+    rgba(
+      148,
+      163,
+      184,
+      0.12
+    );
 }
+
 
 .reference-cta input {
   flex: 1;
@@ -251,6 +336,7 @@ body {
   padding: 0 16px;
 
   border: none;
+
   outline: none;
 
   background:
@@ -268,6 +354,7 @@ body {
   font-size: 12px;
 }
 
+
 .reference-cta input::placeholder {
   color:
     rgba(
@@ -283,6 +370,7 @@ body {
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   min-width: 140px;
@@ -303,8 +391,10 @@ body {
     box-shadow 180ms ease;
 }
 
+
 .reference-button:hover {
-  transform: translateY(-1px);
+  transform:
+    translateY(-1px);
 
   background: #4f46e5;
 
@@ -336,9 +426,11 @@ body {
   font-size: 10px;
 }
 
+
 .reference-services span {
   position: relative;
 }
+
 
 .reference-services span:not(:last-child)::after {
   content: "•";
@@ -376,15 +468,15 @@ body {
 }
 
 
-/* Image glow */
-
 .reference-image-glow {
   position: absolute;
 
   width: 500px;
+
   height: 500px;
 
   left: 50%;
+
   bottom: 20px;
 
   transform:
@@ -407,8 +499,6 @@ body {
   filter: blur(10px);
 }
 
-
-/* Your image */
 
 .reference-person {
   position: relative;
@@ -453,6 +543,7 @@ body {
   z-index: 1;
 
   width: 18px;
+
   height: 2px;
 
   border-radius: 4px;
@@ -468,18 +559,23 @@ body {
 
 .decoration-1 {
   top: 70px;
+
   right: 18%;
 }
 
+
 .decoration-2 {
   top: 150px;
+
   right: 7%;
 
   width: 11px;
 }
 
+
 .decoration-3 {
   top: 280px;
+
   left: 10%;
 
   background:
@@ -491,8 +587,10 @@ body {
     );
 }
 
+
 .decoration-4 {
   bottom: 160px;
+
   left: 15%;
 
   width: 12px;
@@ -506,16 +604,21 @@ body {
     );
 }
 
+
 .decoration-5 {
   bottom: 90px;
+
   right: 10%;
 }
 
+
 .decoration-6 {
   top: 42%;
+
   right: 30%;
 
   width: 9px;
+
   height: 9px;
 
   border-radius: 50%;
@@ -613,7 +716,7 @@ body {
 
 
 /* =====================================================
-   SKILL TAGS
+   OLD SKILL TAGS
 ===================================================== */
 
 .reference-tags {
@@ -625,6 +728,7 @@ body {
 
   margin-top: 35px;
 }
+
 
 .reference-tags span {
   padding:
@@ -659,6 +763,209 @@ body {
       240,
       0.7
     );
+}
+
+
+/* =====================================================
+   SKILLS MARQUEE
+===================================================== */
+
+.skills-section {
+  overflow: hidden;
+}
+
+
+.skills-marquee {
+  position: relative;
+
+  width: 100%;
+
+  margin-top: 55px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 34px;
+
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+}
+
+
+.skills-marquee-row {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+
+.skills-marquee-track {
+  display: flex;
+
+  align-items: center;
+
+  width: max-content;
+
+  gap: 70px;
+
+  animation:
+    skills-scroll-left
+    32s
+    linear
+    infinite;
+
+  will-change: transform;
+}
+
+
+.skills-marquee-reverse
+.skills-marquee-track {
+  animation:
+    skills-scroll-right
+    36s
+    linear
+    infinite;
+}
+
+
+/* =====================================================
+   SKILL ITEM
+===================================================== */
+
+.skill-logo {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-direction: column;
+
+  gap: 13px;
+
+  min-width: 125px;
+
+  color:
+    rgba(
+      148,
+      163,
+      184,
+      0.48
+    );
+
+  opacity: 0.72;
+
+  transition:
+    color 250ms ease,
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+
+.skill-logo-icon {
+  width: 48px;
+
+  height: 48px;
+
+  flex-shrink: 0;
+
+  transition:
+    transform 250ms ease,
+    filter 250ms ease;
+}
+
+
+.skill-logo span {
+  font-size: 11px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  letter-spacing: 0.01em;
+}
+
+
+/* =====================================================
+   SKILL HOVER
+===================================================== */
+
+.skill-logo:hover {
+  color: #f8fafc;
+
+  opacity: 1;
+
+  transform:
+    translateY(-5px);
+}
+
+
+.skill-logo:hover
+.skill-logo-icon {
+  transform:
+    scale(1.12);
+}
+
+
+/* =====================================================
+   SKILLS ANIMATION
+===================================================== */
+
+@keyframes skills-scroll-left {
+
+  from {
+    transform:
+      translateX(0);
+  }
+
+  to {
+    transform:
+      translateX(-50%);
+  }
+
+}
+
+
+@keyframes skills-scroll-right {
+
+  from {
+    transform:
+      translateX(-50%);
+  }
+
+  to {
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+/* Pause all skill animations on hover */
+
+.skills-marquee:hover
+.skills-marquee-track {
+  animation-play-state: paused;
 }
 
 
@@ -1076,48 +1383,6 @@ body {
 
 
 /* =====================================================
-   TABLET (768px – 1000px)
-===================================================== */
-
-@media (max-width: 768px) and (min-width: 481px) {
-
-  .reference-hero {
-    padding: 0 16px 30px;
-  }
-
-  .reference-hero-content {
-    padding: 55px 30px 30px;
-  }
-
-  .reference-hero-image {
-    min-height: 360px;
-  }
-
-  .reference-person {
-    height: 360px;
-    max-width: 85%;
-  }
-
-  .reference-service-grid,
-  .reference-project-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .reference-section {
-    padding: 60px 24px;
-  }
-
-  .reference-contact {
-    padding: 70px 24px;
-  }
-
-  .reference-services {
-    gap: 6px 16px;
-  }
-}
-
-/* =====================================================
    TABLET
 ===================================================== */
 
@@ -1130,11 +1395,13 @@ body {
       35px;
   }
 
+
   .reference-hero-inner {
     grid-template-columns: 1fr;
 
     min-height: auto;
   }
+
 
   .reference-hero-content {
     padding:
@@ -1143,15 +1410,18 @@ body {
       35px;
   }
 
+
   .reference-hero-image {
     min-height: 480px;
   }
+
 
   .reference-person {
     height: 480px;
 
     max-width: 90%;
   }
+
 
   .reference-service-grid,
   .reference-project-grid {
@@ -1164,6 +1434,79 @@ body {
         )
       );
   }
+
+}
+
+
+/* =====================================================
+   TABLET 768 - 480
+===================================================== */
+
+@media (max-width: 768px) and (min-width: 481px) {
+
+  .reference-hero {
+    padding:
+      0
+      16px
+      30px;
+  }
+
+
+  .reference-hero-content {
+    padding:
+      55px
+      30px
+      30px;
+  }
+
+
+  .reference-hero-image {
+    min-height: 360px;
+  }
+
+
+  .reference-person {
+    height: 360px;
+
+    max-width: 85%;
+  }
+
+
+  .reference-service-grid,
+  .reference-project-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+
+    gap: 14px;
+  }
+
+
+  .reference-section {
+    padding:
+      60px
+      24px;
+  }
+
+
+  .reference-contact {
+    padding:
+      70px
+      24px;
+  }
+
+
+  .reference-services {
+    gap:
+      6px
+      16px;
+  }
+
 }
 
 
@@ -1173,519 +1516,1136 @@ body {
 
 @media (max-width: 640px) {
 
-  /* About page — inline padding adjustments for mobile */
   .portfolio-section {
     padding: 1.25rem !important;
   }
+
 
   .portfolio-card {
     padding: 1rem !important;
   }
 
+
   .reference-hero {
-    padding: 0 10px 20px;
+    padding:
+      0
+      10px
+      20px;
   }
+
 
   .reference-hero-inner {
     border-radius: 20px;
   }
 
+
   .reference-hero-content {
-    padding: 45px 25px 25px;
+    padding:
+      45px
+      25px
+      25px;
   }
+
 
   .reference-title {
     font-size: 44px;
+
     line-height: 1;
   }
 
+
   .reference-description {
     font-size: 14px;
-    margin: 25px 0;
+
+    margin:
+      25px
+      0;
   }
 
-  /* CTA: stack input + button vertically */
+
+  /* CTA */
+
   .reference-cta {
     flex-direction: column;
+
     gap: 10px;
+
     width: 100%;
+
     max-width: none;
   }
+
 
   .reference-cta input,
   .reference-button {
     width: 100%;
+
     max-width: none;
+
     min-height: 44px;
+
     height: 44px;
+
     box-sizing: border-box;
   }
+
 
   .reference-button {
     justify-content: center;
   }
 
-  /* Hide hero decorations to prevent overflow */
+
+  /* Hide decorations */
+
   .reference-decoration,
   .reference-image-glow {
     display: none;
   }
 
+
   .reference-hero-image {
     min-height: 260px;
+
     order: -1;
   }
 
+
   .reference-person {
     height: 260px;
+
     max-width: 80%;
   }
 
+
   /* Sections */
+
   .reference-section {
     width: 100%;
-    padding: 60px 20px;
+
+    padding:
+      60px
+      20px;
   }
 
+
   .reference-section h2 {
-    font-size: clamp(28px, 6vw, 38px);
+    font-size:
+      clamp(
+        28px,
+        6vw,
+        38px
+      );
   }
+
 
   .reference-section > p {
     font-size: 15px;
+
     line-height: 1.7;
   }
 
-  /* Grids: single column */
+
+  /* Grids */
+
   .reference-service-grid,
   .reference-project-grid {
     grid-template-columns: 1fr;
+
     gap: 14px;
+
     margin-top: 32px;
   }
+
 
   .reference-project {
     padding: 22px;
   }
+
 
   .reference-project h3 {
     font-size: 18px;
   }
 
+
   .reference-project p {
     font-size: 13px;
   }
 
+
   .reference-project-tags {
     margin-top: 16px;
+
     gap: 5px;
   }
 
+
   .reference-project-tags small {
-    padding: 4px 8px;
+    padding:
+      4px
+      8px;
+
     font-size: 10px;
   }
 
+
   .reference-project-links {
     margin-top: 18px;
+
     gap: 12px;
   }
 
-  /* Services list: vertical on mobile */
+
+  /* Hero services */
+
   .reference-services {
     flex-direction: column;
+
     gap: 6px;
+
     font-size: 12px;
   }
+
 
   .reference-services span:not(:last-child)::after {
     display: none;
   }
 
-  /* Tags */
-  .reference-tags {
-    gap: 8px;
-    margin-top: 28px;
+
+  /* =================================================
+     SKILLS MOBILE
+  ================================================= */
+
+  .skills-marquee {
+    margin-top: 38px;
+
+    gap: 25px;
+
+    mask-image:
+      linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+      );
+
+    -webkit-mask-image:
+      linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+      );
   }
 
-  .reference-tags span {
-    padding: 7px 12px;
-    font-size: 11px;
+
+  .skills-marquee-track {
+    gap: 40px;
+
+    animation-duration: 25s;
   }
 
-  /* Service cards */
+
+  .skills-marquee-reverse
+  .skills-marquee-track {
+    animation-duration: 28s;
+  }
+
+
+  .skill-logo {
+    min-width: 90px;
+
+    gap: 9px;
+  }
+
+
+  .skill-logo-icon {
+    width: 34px;
+
+    height: 34px;
+  }
+
+
+  .skill-logo span {
+    font-size: 9px;
+  }
+
+
+  /* Services */
+
   .reference-service {
     padding: 22px;
   }
+
 
   .reference-service h3 {
     font-size: 16px;
   }
 
+
   .reference-service p {
     font-size: 13px;
   }
 
+
   /* Contact */
+
   .reference-contact {
     width: 100%;
-    border-radius: 20px 20px 0 0;
-    padding: 60px 20px;
+
+    border-radius:
+      20px
+      20px
+      0
+      0;
+
+    padding:
+      60px
+      20px;
   }
 
+
   .reference-contact h2 {
-    font-size: clamp(32px, 7vw, 48px);
+    font-size:
+      clamp(
+        32px,
+        7vw,
+        48px
+      );
+
     margin-bottom: 18px;
   }
 
+
   .reference-contact p {
     font-size: 15px;
+
     line-height: 1.7;
   }
 
+
   .reference-contact-links a {
-    padding: 10px 16px;
+    padding:
+      10px
+      16px;
+
     font-size: 12px;
+
     min-height: 44px;
+
     display: inline-flex;
+
     align-items: center;
   }
+
 }
 
+
 /* =====================================================
-   SMALL MOBILE (< 480px)
+   SMALL MOBILE
 ===================================================== */
 
 @media (max-width: 480px) {
 
   .reference-hero {
-    padding: 0 8px 16px;
+    padding:
+      0
+      8px
+      16px;
   }
 
+
   .reference-hero-content {
-    padding: 36px 16px 20px;
+    padding:
+      36px
+      16px
+      20px;
   }
+
 
   .reference-title {
     font-size: 36px;
+
     letter-spacing: -0.04em;
   }
 
+
   .reference-description {
     font-size: 13px;
-    margin: 20px 0;
+
+    margin:
+      20px
+      0;
+
     line-height: 1.6;
   }
 
+
   .reference-eyebrow {
     font-size: 11px;
+
     margin-bottom: 16px;
   }
+
 
   .reference-hero-image {
     min-height: 200px;
   }
 
+
   .reference-person {
     height: 200px;
+
     max-width: 90%;
   }
 
+
   .reference-section {
-    padding: 48px 16px;
+    padding:
+      48px
+      16px;
+
     width: 100%;
   }
 
+
   .reference-section h2 {
-    font-size: clamp(26px, 7vw, 34px);
+    font-size:
+      clamp(
+        26px,
+        7vw,
+        34px
+      );
+
     margin-bottom: 18px;
   }
+
 
   .reference-section > p {
     font-size: 14px;
   }
 
+
   .reference-section-label {
     font-size: 10px;
+
     margin-bottom: 12px;
   }
+
+
+  /* =================================================
+     SKILLS SMALL MOBILE
+  ================================================= */
+
+  .skills-marquee {
+    margin-top: 30px;
+
+    gap: 20px;
+  }
+
+
+  .skills-marquee-track {
+    gap: 32px;
+
+    animation-duration: 22s;
+  }
+
+
+  .skills-marquee-reverse
+  .skills-marquee-track {
+    animation-duration: 24s;
+  }
+
+
+  .skill-logo {
+    min-width: 78px;
+  }
+
+
+  .skill-logo-icon {
+    width: 30px;
+
+    height: 30px;
+  }
+
+
+  .skill-logo span {
+    font-size: 8px;
+  }
+
+
+  /* Projects */
 
   .reference-project {
     padding: 18px;
   }
 
+
   .reference-project h3 {
     font-size: 17px;
-    margin: 12px 0 8px;
+
+    margin:
+      12px
+      0
+      8px;
   }
+
 
   .reference-project p {
     font-size: 12px;
+
     line-height: 1.6;
   }
 
+
   .reference-project-tags {
     margin-top: 14px;
+
     gap: 4px;
   }
 
+
   .reference-project-tags small {
-    padding: 4px 7px;
+    padding:
+      4px
+      7px;
+
     font-size: 9px;
   }
 
+
   .reference-project-links {
     margin-top: 14px;
+
     gap: 10px;
+
     font-size: 10px;
   }
 
+
+  /* Services */
+
   .reference-service-grid {
     gap: 12px;
+
     margin-top: 28px;
   }
+
 
   .reference-service {
     padding: 18px;
   }
 
+
   .reference-service h3 {
     font-size: 15px;
   }
 
+
   .reference-service p {
     font-size: 12px;
+
     line-height: 1.5;
   }
 
+
+  /* Contact */
+
   .reference-contact {
-    padding: 48px 16px;
-    border-radius: 16px 16px 0 0;
+    padding:
+      48px
+      16px;
+
+    border-radius:
+      16px
+      16px
+      0
+      0;
   }
 
+
   .reference-contact h2 {
-    font-size: clamp(28px, 8vw, 40px);
+    font-size:
+      clamp(
+        28px,
+        8vw,
+        40px
+      );
+
     margin-bottom: 18px;
   }
 
+
   .reference-contact p {
     font-size: 14px;
+
     line-height: 1.6;
+
     margin-bottom: 22px;
   }
+
 
   .reference-contact-links {
     gap: 8px;
   }
 
+
   .reference-contact-links a {
-    padding: 8px 14px;
+    padding:
+      8px
+      14px;
+
     font-size: 11px;
   }
 
-  .reference-tags {
-    gap: 6px;
-    margin-top: 20px;
-  }
-
-  .reference-tags span {
-    padding: 6px 10px;
-    font-size: 10px;
-  }
 }
+
 
 /* =====================================================
    LIGHT THEME
-   The homepage sections below are hardcoded for the dark
-   palette. When the theme toggle switches to light, flip
-   them to a light palette that mirrors the same design.
 ===================================================== */
 
-html[data-theme="light"] .reference-hero-inner {
+
+/* Hero */
+
+html[data-theme="light"]
+.reference-hero-inner {
+
   background:
     radial-gradient(
       circle at 75% 30%,
-      rgba(99, 102, 241, 0.10),
+      rgba(
+        99,
+        102,
+        241,
+        0.10
+      ),
       transparent 32%
     ),
     radial-gradient(
       circle at 25% 80%,
-      rgba(99, 102, 241, 0.07),
+      rgba(
+        99,
+        102,
+        241,
+        0.07
+      ),
       transparent 30%
     ),
-    rgba(255, 255, 255, 0.85);
+    rgba(
+      255,
+      255,
+      255,
+      0.85
+    );
 
-  border-color: rgba(15, 23, 42, 0.08);
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.08
+    );
 
   box-shadow:
     0 30px 80px
-    rgba(2, 6, 23, 0.08);
+    rgba(
+      2,
+      6,
+      23,
+      0.08
+    );
 }
 
-html[data-theme="light"] .reference-eyebrow {
-  color: rgba(15, 23, 42, 0.6);
+
+html[data-theme="light"]
+.reference-eyebrow {
+  color:
+    rgba(
+      15,
+      23,
+      42,
+      0.6
+    );
 }
 
-html[data-theme="light"] .reference-title {
+
+html[data-theme="light"]
+.reference-title {
   color: #0f172a;
 }
 
-html[data-theme="light"] .reference-accent {
+
+html[data-theme="light"]
+.reference-accent {
   color: #6366f1;
 
   text-shadow:
     0 0 35px
-    rgba(99, 102, 241, 0.16);
-}
-
-html[data-theme="light"] .reference-description {
-  color: rgba(15, 23, 42, 0.66);
-}
-
-html[data-theme="light"] .reference-cta {
-  border-color: rgba(15, 23, 42, 0.12);
-}
-
-html[data-theme="light"] .reference-cta input {
-  background: rgba(255, 255, 255, 0.88);
-
-  color: #0f172a;
-}
-
-html[data-theme="light"] .reference-cta input::placeholder {
-  color: rgba(51, 65, 85, 0.55);
-}
-
-html[data-theme="light"] .reference-services {
-  color: rgba(51, 65, 85, 0.7);
-}
-
-html[data-theme="light"] .reference-services span:not(:last-child)::after {
-  color: rgba(51, 65, 85, 0.4);
-}
-
-html[data-theme="light"] .reference-person {
-  filter:
-    drop-shadow(
-      0 30px 40px
-      rgba(2, 6, 23, 0.12)
+    rgba(
+      99,
+      102,
+      241,
+      0.16
     );
 }
 
-html[data-theme="light"] .decoration-3,
-html[data-theme="light"] .decoration-4,
-html[data-theme="light"] .decoration-6 {
-  background: rgba(51, 65, 85, 0.4);
+
+html[data-theme="light"]
+.reference-description {
+  color:
+    rgba(
+      15,
+      23,
+      42,
+      0.66
+    );
 }
 
-html[data-theme="light"] .reference-section {
-  border-top-color: rgba(15, 23, 42, 0.1);
+
+html[data-theme="light"]
+.reference-cta {
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.12
+    );
 }
 
-html[data-theme="light"] .reference-section-label {
+
+html[data-theme="light"]
+.reference-cta input {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.88
+    );
+
+  color: #0f172a;
+}
+
+
+html[data-theme="light"]
+.reference-cta input::placeholder {
+  color:
+    rgba(
+      51,
+      65,
+      85,
+      0.55
+    );
+}
+
+
+html[data-theme="light"]
+.reference-services {
+  color:
+    rgba(
+      51,
+      65,
+      85,
+      0.7
+    );
+}
+
+
+html[data-theme="light"]
+.reference-services
+span:not(:last-child)::after {
+  color:
+    rgba(
+      51,
+      65,
+      85,
+      0.4
+    );
+}
+
+
+html[data-theme="light"]
+.reference-person {
+  filter:
+    drop-shadow(
+      0 30px 40px
+      rgba(
+        2,
+        6,
+        23,
+        0.12
+      )
+    );
+}
+
+
+html[data-theme="light"]
+.decoration-3,
+html[data-theme="light"]
+.decoration-4,
+html[data-theme="light"]
+.decoration-6 {
+  background:
+    rgba(
+      51,
+      65,
+      85,
+      0.4
+    );
+}
+
+
+/* Sections */
+
+html[data-theme="light"]
+.reference-section {
+  border-top-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.1
+    );
+}
+
+
+html[data-theme="light"]
+.reference-section-label {
   color: #6366f1;
 }
 
-html[data-theme="light"] .reference-section h2 {
+
+html[data-theme="light"]
+.reference-section h2 {
   color: #0f172a;
 }
 
-html[data-theme="light"] .reference-section > p {
-  color: rgba(30, 41, 59, 0.66);
+
+html[data-theme="light"]
+.reference-section > p {
+  color:
+    rgba(
+      30,
+      41,
+      59,
+      0.66
+    );
 }
 
-html[data-theme="light"] .reference-tags span {
-  border-color: rgba(15, 23, 42, 0.14);
 
-  background: rgba(255, 255, 255, 0.8);
+/* =====================================================
+   LIGHT THEME — SKILLS
+===================================================== */
 
-  color: rgba(15, 23, 42, 0.72);
+html[data-theme="light"]
+.skill-logo {
+  color:
+    rgba(
+      51,
+      65,
+      85,
+      0.48
+    );
 }
 
-html[data-theme="light"] .reference-service {
-  border-color: rgba(15, 23, 42, 0.1);
 
-  background: rgba(255, 255, 255, 0.72);
+html[data-theme="light"]
+.skill-logo:hover {
+  color: #0f172a;
+
+  opacity: 1;
 }
 
-html[data-theme="light"] .reference-service:hover {
-  border-color: rgba(129, 140, 248, 0.45);
 
-  background: rgba(255, 255, 255, 0.95);
+/* =====================================================
+   LIGHT THEME — TAGS
+===================================================== */
+
+html[data-theme="light"]
+.reference-tags span {
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.14
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.8
+    );
+
+  color:
+    rgba(
+      15,
+      23,
+      42,
+      0.72
+    );
 }
 
-html[data-theme="light"] .reference-service h3 {
+
+/* =====================================================
+   LIGHT THEME — SERVICES
+===================================================== */
+
+html[data-theme="light"]
+.reference-service {
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.1
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
+}
+
+
+html[data-theme="light"]
+.reference-service:hover {
+  border-color:
+    rgba(
+      129,
+      140,
+      248,
+      0.45
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+}
+
+
+html[data-theme="light"]
+.reference-service h3 {
   color: #0f172a;
 }
 
-html[data-theme="light"] .reference-service p {
-  color: rgba(30, 41, 59, 0.6);
+
+html[data-theme="light"]
+.reference-service p {
+  color:
+    rgba(
+      30,
+      41,
+      59,
+      0.6
+    );
 }
 
-html[data-theme="light"] .reference-project {
-  border-color: rgba(15, 23, 42, 0.1);
 
-  background: rgba(255, 255, 255, 0.72);
+/* =====================================================
+   LIGHT THEME — PROJECTS
+===================================================== */
+
+html[data-theme="light"]
+.reference-project {
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.1
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
 }
 
-html[data-theme="light"] .reference-project:hover {
-  border-color: rgba(129, 140, 248, 0.35);
+
+html[data-theme="light"]
+.reference-project:hover {
+  border-color:
+    rgba(
+      129,
+      140,
+      248,
+      0.35
+    );
 
   box-shadow:
     0 20px 50px
-    rgba(15, 23, 42, 0.12);
+    rgba(
+      15,
+      23,
+      42,
+      0.12
+    );
 }
 
-html[data-theme="light"] .reference-project > span {
+
+html[data-theme="light"]
+.reference-project > span {
   color: #6366f1;
 }
 
-html[data-theme="light"] .reference-project h3 {
+
+html[data-theme="light"]
+.reference-project h3 {
   color: #0f172a;
 }
 
-html[data-theme="light"] .reference-project p {
-  color: rgba(30, 41, 59, 0.6);
+
+html[data-theme="light"]
+.reference-project p {
+  color:
+    rgba(
+      30,
+      41,
+      59,
+      0.6
+    );
 }
 
-html[data-theme="light"] .reference-project-tags small {
-  background: rgba(99, 102, 241, 0.14);
+
+html[data-theme="light"]
+.reference-project-tags small {
+  background:
+    rgba(
+      99,
+      102,
+      241,
+      0.14
+    );
 
   color: #4338ca;
 }
 
-html[data-theme="light"] .reference-project-links {
+
+html[data-theme="light"]
+.reference-project-links {
   color: #4338ca;
 }
 
-html[data-theme="light"] .reference-text-link {
+
+html[data-theme="light"]
+.reference-text-link {
   color: #4338ca;
 }
 
-html[data-theme="light"] .reference-contact {
-  background: rgba(255, 255, 255, 0.9);
 
-  border-color: rgba(15, 23, 42, 0.1);
+/* =====================================================
+   LIGHT THEME — CONTACT
+===================================================== */
+
+html[data-theme="light"]
+.reference-contact {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.1
+    );
 }
 
-html[data-theme="light"] .reference-contact h2 {
+
+html[data-theme="light"]
+.reference-contact h2 {
   color: #0f172a;
 }
 
-html[data-theme="light"] .reference-contact p {
-  color: rgba(30, 41, 59, 0.62);
+
+html[data-theme="light"]
+.reference-contact p {
+  color:
+    rgba(
+      30,
+      41,
+      59,
+      0.62
+    );
 }
 
-html[data-theme="light"] .reference-contact-links a {
-  border-color: rgba(15, 23, 42, 0.16);
 
-  color: rgba(30, 41, 59, 0.78);
+html[data-theme="light"]
+.reference-contact-links a {
+  border-color:
+    rgba(
+      15,
+      23,
+      42,
+      0.16
+    );
+
+  color:
+    rgba(
+      30,
+      41,
+      59,
+      0.78
+    );
 }
 
-html[data-theme="light"] .reference-contact-links a:hover {
+
+html[data-theme="light"]
+.reference-contact-links a:hover {
   background: #6366f1;
 
   border-color: #6366f1;
 
   color: #ffffff;
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+/* Respect users who prefer reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  .skills-marquee-track {
+    animation: none !important;
+
+    transform: none !important;
+  }
+
+
+  .skill-logo,
+  .skill-logo-icon,
+  .reference-service,
+  .reference-project {
+    transition: none;
+  }
+
 }
