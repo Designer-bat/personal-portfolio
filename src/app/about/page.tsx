@@ -47,7 +47,7 @@ export default function About() {
             <Heading variant="display-strong-l">{person.name}</Heading>
             <Text variant="heading-default-xl" onBackground="neutral-weak">{person.role}</Text>
             <Text variant="body-default-l" onBackground="neutral-weak">
-              I’m a multidisciplinary designer and frontend developer building thoughtful digital products for founders, teams, and brands that care about details.
+              I'm Ramesh, a BIM student and multidisciplinary designer interested in graphic design, UI/UX, and development. I enjoy turning ideas into clear visual identities and practical digital experiences.
             </Text>
             <Row wrap gap="8">
               {person.languages?.map((language) => (
@@ -76,6 +76,23 @@ export default function About() {
             </Row>
           </Column>
         </Row>
+      </section>
+
+      {/* Credibility */}
+      <section className="portfolio-section" style={{ padding: "2rem" }}>
+        <Column gap="12">
+          <Text variant="label-default-s" onBackground="brand-weak">Credibility</Text>
+          <Row wrap gap="16">
+            <Column className="portfolio-card" padding="20" gap="4">
+              <Text variant="heading-strong-s">3+ Years</Text>
+              <Text variant="body-default-s" onBackground="neutral-weak">Design Experience</Text>
+            </Column>
+            <Column className="portfolio-card" padding="20" gap="4">
+              <Text variant="heading-strong-s">BIM</Text>
+              <Text variant="body-default-s" onBackground="neutral-weak">Tribhuvan University</Text>
+            </Column>
+          </Row>
+        </Column>
       </section>
 
       <section className="portfolio-section" style={{ padding: "2rem" }}>

@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Ramesh",
   lastName: "Tiwari",
   name: "Ramesh Tiwari",
-  role: "UI/UX Designer • Graphic Designer • Frontend Developer",
+  role: "Graphic Designer & UI/UX Designer",
   avatar: "/images/avatar.jpg",
   email: "hello@ramesh.dev",
   location: "Asia/Kathmandu",
@@ -45,6 +45,12 @@ const social: Social = [
     essential: true,
   },
 ];
+
+/** Contact is a home-page anchor, shown in the main navigation. */
+const contact = {
+  path: "/#contact",
+  label: "Contact",
+};
 
 const home: Home = {
   path: "/",
@@ -95,7 +101,7 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        I’m {person.firstName}, a multidisciplinary designer and frontend developer focused on making digital products feel effortless, refined, and useful. My work spans brand systems, interface design, and modern web development, with a strong preference for clarity, pacing, and premium interactions.
+        I’m {person.firstName}, a BIM student and multidisciplinary designer interested in graphic design, UI/UX, and development. I enjoy turning ideas into clear visual identities and practical digital experiences.
       </>
     ),
   },
@@ -131,7 +137,7 @@ const about: About = {
     title: "Education",
     institutions: [
       {
-        name: "BIM Student",
+        name: "BIM — Tribhuvan University",
         description: <>Building a strong foundation in technology, systems thinking, and product development.</>,
       },
       {
@@ -176,45 +182,45 @@ const gallery: Gallery = {
   images: [
     {
       src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-4.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/horizontal-3.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-1.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/vertical-2.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/horizontal-2.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/horizontal-4.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-3.jpg",
-      alt: "image",
+      alt: "Design work sample",
       orientation: "vertical",
     },
   ],
 };
 
-export { person, social, newsletter, home, about, work, gallery };
+export { person, social, contact, newsletter, home, about, work, gallery };

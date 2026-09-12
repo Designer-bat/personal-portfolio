@@ -5,6 +5,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 
+/* =====================================================
+   PORTFOLIO TOKENS
+   Shared color vocabulary for new sections. Accent stays
+   constant; ink / surfaces flip with the theme.
+===================================================== */
+
+:root {
+  --pf-accent: #6366f1;
+  --pf-accent-strong: #4f46e5;
+  --pf-accent-soft: #818cf8;
+  --pf-ink: #f8fafc;
+  --pf-body: rgba(203, 213, 225, 0.62);
+  --pf-muted: rgba(148, 163, 184, 0.65);
+  --pf-soft: rgba(226, 232, 240, 0.8);
+  --pf-line: rgba(148, 163, 184, 0.16);
+  --pf-panel: rgba(15, 23, 42, 0.55);
+  --pf-panel-hover: rgba(30, 41, 59, 0.65);
+}
+
+
+html[data-theme="light"] {
+  --pf-ink: #0f172a;
+  --pf-body: rgba(30, 41, 59, 0.66);
+  --pf-muted: rgba(51, 65, 85, 0.7);
+  --pf-soft: rgba(30, 41, 59, 0.78);
+  --pf-line: rgba(15, 23, 42, 0.14);
+  --pf-panel: rgba(255, 255, 255, 0.72);
+  --pf-panel-hover: rgba(255, 255, 255, 0.95);
+}
+
+
 html {
   scroll-behavior: smooth;
 
@@ -272,6 +303,23 @@ body {
 
 
 /* =====================================================
+   HERO ROLE LINE
+===================================================== */
+
+.reference-role {
+  margin: 20px 0 0;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  color: var(--pf-soft);
+}
+
+
+/* =====================================================
    HERO DESCRIPTION
 ===================================================== */
 
@@ -279,9 +327,9 @@ body {
   max-width: 500px;
 
   margin:
-    30px
+    22px
     0
-    28px;
+    30px;
 
   font-size: 15px;
 
@@ -298,97 +346,57 @@ body {
 
 
 /* =====================================================
-   EMAIL CTA
+   HERO CTA
 ===================================================== */
 
 .reference-cta {
   display: flex;
 
-  align-items: stretch;
+  flex-wrap: wrap;
 
-  width: 100%;
+  align-items: center;
 
-  max-width: 410px;
+  gap: 12px;
 
   margin-bottom: 26px;
-
-  border-radius: 8px;
-
-  overflow: hidden;
-
-  border: 1px solid
-    rgba(
-      148,
-      163,
-      184,
-      0.12
-    );
-}
-
-
-.reference-cta input {
-  flex: 1;
-
-  min-width: 0;
-
-  height: 48px;
-
-  padding: 0 16px;
-
-  border: none;
-
-  outline: none;
-
-  background:
-    rgba(
-      15,
-      23,
-      42,
-      0.75
-    );
-
-  color: #f8fafc;
-
-  font-family: inherit;
-
-  font-size: 12px;
-}
-
-
-.reference-cta input::placeholder {
-  color:
-    rgba(
-      148,
-      163,
-      184,
-      0.6
-    );
 }
 
 
 .reference-button {
-  display: flex;
+  display: inline-flex;
 
   align-items: center;
 
   justify-content: center;
 
-  min-width: 140px;
+  gap: 8px;
 
-  padding: 0 20px;
+  min-height: 48px;
 
-  background: #6366f1;
+  padding: 0 24px;
+
+  border-radius: 100px;
+
+  background: var(--pf-accent);
 
   color: #ffffff;
 
-  font-size: 12px;
+  font-size: 14px;
 
   font-weight: 600;
+
+  text-decoration: none;
 
   transition:
     transform 180ms ease,
     background 180ms ease,
     box-shadow 180ms ease;
+
+  > span {
+    font-size: 16px;
+
+    line-height: 1;
+  }
 }
 
 
@@ -396,11 +404,50 @@ body {
   transform:
     translateY(-1px);
 
-  background: #4f46e5;
+  background: var(--pf-accent-strong);
 
   box-shadow:
     0 10px 30px
-    rgba(99, 102, 241, 0.25);
+    rgba(99, 102, 241, 0.3);
+}
+
+
+.reference-button:focus-visible {
+  outline: 2px solid var(--pf-accent-soft);
+
+  outline-offset: 3px;
+}
+
+
+.reference-button-ghost {
+  background: transparent;
+
+  border: 1px solid
+    rgba(
+      148,
+      163,
+      184,
+      0.4
+    );
+
+  color: var(--pf-ink);
+}
+
+
+.reference-button-ghost:hover {
+  background:
+    rgba(
+      99,
+      102,
+      241,
+      0.12
+    );
+
+  border-color: var(--pf-accent-soft);
+
+  color: var(--pf-ink);
+
+  box-shadow: none;
 }
 
 
@@ -716,256 +763,156 @@ body {
 
 
 /* =====================================================
-   OLD SKILL TAGS
+   SKILLS GROUPS
+   Clean, static two-column layout — Design / Development.
 ===================================================== */
 
-.reference-tags {
+.skills-groups {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 18px;
+
+  margin-top: 45px;
+}
+
+
+.skills-group {
+  padding: 30px;
+
+  border:
+    1px solid
+    var(--pf-line);
+
+  border-radius: 18px;
+
+  background: var(--pf-panel);
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+
+.skills-group:hover {
+  border-color:
+    rgba(
+      129,
+      140,
+      248,
+      0.4
+    );
+
+  background: var(--pf-panel-hover);
+}
+
+
+.skills-group-head {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-bottom: 22px;
+}
+
+
+.skills-group-title {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+
+  color: var(--pf-accent-soft);
+}
+
+
+.skills-group-head p {
+  margin: 0;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: var(--pf-body);
+}
+
+
+.skills-list {
   display: flex;
 
   flex-wrap: wrap;
 
-  gap: 10px;
-
-  margin-top: 35px;
+  gap: 8px;
 }
 
 
-.reference-tags span {
+.skill-chip {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
   padding:
     9px
     14px;
-
-  border:
-    1px solid
-    rgba(
-      148,
-      163,
-      184,
-      0.18
-    );
 
   border-radius: 100px;
 
   background:
     rgba(
-      15,
-      23,
-      42,
-      0.55
+      99,
+      102,
+      241,
+      0.12
     );
 
   font-size: 12px;
 
-  color:
-    rgba(
-      226,
-      232,
-      240,
-      0.7
-    );
-}
-
-
-/* =====================================================
-   SKILLS MARQUEE
-===================================================== */
-
-.skills-section {
-  overflow: hidden;
-}
-
-
-.skills-marquee {
-  position: relative;
-
-  width: 100%;
-
-  margin-top: 55px;
-
-  overflow: hidden;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 34px;
-
-  mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%
-    );
-
-  -webkit-mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      black 8%,
-      black 92%,
-      transparent 100%
-    );
-}
-
-
-.skills-marquee-row {
-  position: relative;
-
-  width: 100%;
-
-  overflow: hidden;
-}
-
-
-.skills-marquee-track {
-  display: flex;
-
-  align-items: center;
-
-  width: max-content;
-
-  gap: 70px;
-
-  animation:
-    skills-scroll-left
-    32s
-    linear
-    infinite;
-
-  will-change: transform;
-}
-
-
-.skills-marquee-reverse
-.skills-marquee-track {
-  animation:
-    skills-scroll-right
-    36s
-    linear
-    infinite;
-}
-
-
-/* =====================================================
-   SKILL ITEM
-===================================================== */
-
-.skill-logo {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex-direction: column;
-
-  gap: 13px;
-
-  min-width: 125px;
-
-  color:
-    rgba(
-      148,
-      163,
-      184,
-      0.48
-    );
-
-  opacity: 0.72;
-
-  transition:
-    color 250ms ease,
-    opacity 250ms ease,
-    transform 250ms ease;
-}
-
-
-.skill-logo-icon {
-  width: 48px;
-
-  height: 48px;
-
-  flex-shrink: 0;
-
-  transition:
-    transform 250ms ease,
-    filter 250ms ease;
-}
-
-
-.skill-logo span {
-  font-size: 11px;
-
   font-weight: 500;
+
+  color: #a5b4fc;
 
   white-space: nowrap;
 
-  letter-spacing: 0.01em;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 
-/* =====================================================
-   SKILL HOVER
-===================================================== */
+.skill-chip svg {
+  font-size: 15px;
+}
 
-.skill-logo:hover {
-  color: #f8fafc;
 
-  opacity: 1;
-
+.skill-chip:hover {
   transform:
-    translateY(-5px);
-}
+    translateY(-2px);
 
+  background:
+    rgba(
+      99,
+      102,
+      241,
+      0.22
+    );
 
-.skill-logo:hover
-.skill-logo-icon {
-  transform:
-    scale(1.12);
-}
-
-
-/* =====================================================
-   SKILLS ANIMATION
-===================================================== */
-
-@keyframes skills-scroll-left {
-
-  from {
-    transform:
-      translateX(0);
-  }
-
-  to {
-    transform:
-      translateX(-50%);
-  }
-
-}
-
-
-@keyframes skills-scroll-right {
-
-  from {
-    transform:
-      translateX(-50%);
-  }
-
-  to {
-    transform:
-      translateX(0);
-  }
-
-}
-
-
-/* Pause all skill animations on hover */
-
-.skills-marquee:hover
-.skills-marquee-track {
-  animation-play-state: paused;
+  color: #ffffff;
 }
 
 
@@ -1248,6 +1195,154 @@ body {
 
 
 /* =====================================================
+   FEATURED WORK GRID
+   Behance-style cards in a spacious two-column layout.
+===================================================== */
+
+.reference-featured-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap: 40px 28px;
+
+  margin-top: 45px;
+}
+
+
+/* =====================================================
+   DEVELOPMENT ROWS
+===================================================== */
+
+.reference-dev-rows {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-top: 45px;
+}
+
+
+.reference-dev-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 26px 28px;
+
+  border:
+    1px solid
+    var(--pf-line);
+
+  border-radius: 18px;
+
+  background: var(--pf-panel);
+
+  text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+
+.reference-dev-row:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(
+      129,
+      140,
+      248,
+      0.45
+    );
+
+  background: var(--pf-panel-hover);
+}
+
+
+.reference-dev-main {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  min-width: 0;
+}
+
+
+.reference-dev-category {
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.1em;
+
+  color: var(--pf-accent-soft);
+}
+
+
+.reference-dev-row h3 {
+  margin: 0;
+
+  font-size: 19px;
+
+  letter-spacing: -0.01em;
+
+  color: var(--pf-ink);
+}
+
+
+.reference-dev-row p {
+  margin: 0;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: var(--pf-body);
+}
+
+
+.reference-dev-row .reference-project-tags {
+  margin-top: 10px;
+}
+
+
+.reference-dev-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  flex-shrink: 0;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: var(--pf-accent-soft);
+}
+
+
+/* =====================================================
    CONTACT
 ===================================================== */
 
@@ -1323,6 +1418,20 @@ body {
     );
 
   line-height: 1.7;
+}
+
+
+.reference-contact-cta {
+  margin-bottom: 30px;
+}
+
+
+.reference-contact-cta .reference-button {
+  min-height: 50px;
+
+  padding: 0 28px;
+
+  font-size: 15px;
 }
 
 
@@ -1487,6 +1596,16 @@ body {
   }
 
 
+  .reference-featured-grid {
+    gap: 36px 24px;
+  }
+
+
+  .skills-groups {
+    gap: 14px;
+  }
+
+
   .reference-section {
     padding:
       60px
@@ -1568,6 +1687,8 @@ body {
   .reference-cta {
     flex-direction: column;
 
+    align-items: stretch;
+
     gap: 10px;
 
     width: 100%;
@@ -1576,7 +1697,6 @@ body {
   }
 
 
-  .reference-cta input,
   .reference-button {
     width: 100%;
 
@@ -1584,14 +1704,9 @@ body {
 
     min-height: 44px;
 
-    height: 44px;
+    padding: 0 20px;
 
     box-sizing: border-box;
-  }
-
-
-  .reference-button {
-    justify-content: center;
   }
 
 
@@ -1657,6 +1772,36 @@ body {
   }
 
 
+  .reference-featured-grid {
+    grid-template-columns: 1fr;
+
+    gap: 32px;
+
+    margin-top: 32px;
+  }
+
+
+  .reference-dev-row {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    padding: 22px;
+  }
+
+
+  .reference-dev-row h3 {
+    font-size: 17px;
+  }
+
+
+  .reference-dev-link {
+    align-self: flex-start;
+  }
+
+
   .reference-project {
     padding: 22px;
   }
@@ -1715,60 +1860,24 @@ body {
      SKILLS MOBILE
   ================================================= */
 
-  .skills-marquee {
-    margin-top: 38px;
+  .skills-groups {
+    grid-template-columns: 1fr;
 
-    gap: 25px;
+    gap: 14px;
 
-    mask-image:
-      linear-gradient(
-        to right,
-        transparent,
-        black 5%,
-        black 95%,
-        transparent
-      );
-
-    -webkit-mask-image:
-      linear-gradient(
-        to right,
-        transparent,
-        black 5%,
-        black 95%,
-        transparent
-      );
+    margin-top: 32px;
   }
 
 
-  .skills-marquee-track {
-    gap: 40px;
-
-    animation-duration: 25s;
+  .skills-group {
+    padding: 22px;
   }
 
 
-  .skills-marquee-reverse
-  .skills-marquee-track {
-    animation-duration: 28s;
-  }
+  .skill-chip {
+    padding: 8px 12px;
 
-
-  .skill-logo {
-    min-width: 90px;
-
-    gap: 9px;
-  }
-
-
-  .skill-logo-icon {
-    width: 34px;
-
-    height: 34px;
-  }
-
-
-  .skill-logo span {
-    font-size: 9px;
+    font-size: 11px;
   }
 
 
@@ -1882,6 +1991,13 @@ body {
   }
 
 
+  .reference-role {
+    font-size: 14px;
+
+    margin-top: 16px;
+  }
+
+
   .reference-eyebrow {
     font-size: 11px;
 
@@ -1938,40 +2054,22 @@ body {
      SKILLS SMALL MOBILE
   ================================================= */
 
-  .skills-marquee {
-    margin-top: 30px;
-
-    gap: 20px;
+  .skills-groups {
+    margin-top: 28px;
   }
 
 
-  .skills-marquee-track {
-    gap: 32px;
-
-    animation-duration: 22s;
+  .skills-group {
+    padding: 18px;
   }
 
 
-  .skills-marquee-reverse
-  .skills-marquee-track {
-    animation-duration: 24s;
-  }
+  .skill-chip {
+    padding: 7px 11px;
 
+    font-size: 11px;
 
-  .skill-logo {
-    min-width: 78px;
-  }
-
-
-  .skill-logo-icon {
-    width: 30px;
-
-    height: 30px;
-  }
-
-
-  .skill-logo span {
-    font-size: 8px;
+    gap: 6px;
   }
 
 
@@ -2341,54 +2439,14 @@ html[data-theme="light"]
 ===================================================== */
 
 html[data-theme="light"]
-.skill-logo {
-  color:
-    rgba(
-      51,
-      65,
-      85,
-      0.48
-    );
+.skill-chip {
+  color: #4338ca;
 }
 
 
 html[data-theme="light"]
-.skill-logo:hover {
-  color: #0f172a;
-
-  opacity: 1;
-}
-
-
-/* =====================================================
-   LIGHT THEME — TAGS
-===================================================== */
-
-html[data-theme="light"]
-.reference-tags span {
-  border-color:
-    rgba(
-      15,
-      23,
-      42,
-      0.14
-    );
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.8
-    );
-
-  color:
-    rgba(
-      15,
-      23,
-      42,
-      0.72
-    );
+.skill-chip:hover {
+  color: #312e81;
 }
 
 
@@ -2634,17 +2692,11 @@ html[data-theme="light"]
   }
 
 
-  .skills-marquee-track {
-    animation: none !important;
-
-    transform: none !important;
-  }
-
-
-  .skill-logo,
-  .skill-logo-icon,
+  .skill-chip,
   .reference-service,
-  .reference-project {
+  .reference-project,
+  .reference-dev-row,
+  .reference-button {
     transition: none;
   }
 

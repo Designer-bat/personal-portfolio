@@ -14,6 +14,7 @@ import {
   Row,
   Avatar,
   Line,
+  Tag,
 } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
@@ -100,6 +101,18 @@ export default async function Project({
           {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
         </Text>
         <Heading variant="display-strong-m">{post.metadata.title}</Heading>
+        {(post.metadata.category || post.metadata.tags?.length) && (
+          <Row gap="s" wrap vertical="center">
+            {post.metadata.category && (
+              <Tag size="l">{post.metadata.category}</Tag>
+            )}
+            {post.metadata.tags?.map((tag) => (
+              <Tag key={tag} size="s">
+                {tag}
+              </Tag>
+            ))}
+          </Row>
+        )}
       </Column>
       <Row marginBottom="32" horizontal="center">
         <Row gap="16" vertical="center">
@@ -112,7 +125,11 @@ export default async function Project({
                     ,{" "}
                   </Text>
                 )}
-                <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
+                {member.linkedIn ? (
+                  <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
+                ) : (
+                  member.name
+                )}
               </span>
             ))}
           </Text>

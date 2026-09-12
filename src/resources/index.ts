@@ -2,12 +2,15 @@
 export {
   person,
   social,
+  contact,
   newsletter,
   home,
   about,
   work,
   gallery,
 } from "./content";
+
+export { PROJECT_CATEGORIES, devProjects } from "./projects";
 
 export {
   display,

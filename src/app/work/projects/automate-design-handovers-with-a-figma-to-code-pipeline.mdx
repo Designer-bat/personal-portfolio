@@ -3,46 +3,55 @@ title: "Automating Design Handovers with a Figma to Code Pipeline"
 publishedAt: "2024-04-01"
 category: "Development"
 tags: ["Figma", "React", "Pipeline"]
-views: 860
-likes: 52
-summary: "Explore the enduring debate between using spaces and tabs for code indentation, and why this choice matters more than you might think."
+summary: "A workflow that turns Figma designs into clean, production-ready code using design tokens, component libraries, and automated CI/CD — so design and code stay in sync."
 images:
   - "/images/projects/project-01/cover-02.jpg"
   - "/images/projects/project-01/image-03.jpg"
 team:
-  - name: "ramesh"
+  - name: "Ramesh Tiwari"
     role: "Software Engineer"
     avatar: "/images/avatar.jpg"
-    linkedIn: "https://www.linkedin.com/in/rameshtiwari-dev/"
-
 ---
 
-## Overview
+## 01 · Overview
 
-In this project, I focused on automating the often tedious design handover process. The goal was to create a pipeline that converts Figma designs directly into clean, production-ready code. By integrating design tokens, component libraries, and automated workflows, this solution significantly reduced the time spent on translating design assets into code, while maintaining design consistency across the product.
+In this project, I focused on automating the often tedious design handover process. The goal was to create a pipeline that converts Figma designs directly into clean, production-ready code.
 
-## Key Features
+By integrating design tokens, component libraries, and automated workflows, the setup significantly reduces the time spent translating design assets into code while maintaining design consistency across the product.
 
-- **Figma Plugin Integration**: Developed a custom Figma plugin that extracts design tokens such as colors, typography, and spacing values, and exports them in a format compatible with our codebase.
-- **Code Generation**: Integrated an automated process that translates Figma components into React code using a combination of design tokens and pre-built component templates. This allowed developers to focus more on logic and less on repetitive UI coding.
-- **Continuous Sync**: Established a CI/CD pipeline that continuously synchronizes design changes from Figma to the codebase, ensuring design updates are reflected instantly without manual intervention.
-- **Scalable Design System**: Leveraged a design system that remains the single source of truth for both designers and developers, making it easy to maintain consistency even as the product evolves.
+## 02 · Problem
 
-## Technologies Used
+Design handovers between Figma and code are manual and repetitive: colors, typography, spacing, and layout details all have to be translated by hand. That work is slow, and it drifts — what ships in code slowly stops matching what was designed.
 
-- **Figma API**: For extracting design tokens and component data directly from the Figma designs.
-- **React and Next.js**: For building the front-end codebase with clean, reusable components.
-- **Styled-Components**: For managing styles dynamically using design tokens.
-- **GitHub Actions**: For automating the pipeline and syncing design changes to the repository.
+The requirement was a repeatable workflow that keeps design and implementation aligned without developers rebuilding UI from scratch each time.
 
-## Challenges and Learnings
+## 03 · Concept
 
-One of the biggest challenges was ensuring that the generated code was clean and maintainable. This involved setting up intelligent mapping between Figma components and React code structures, as well as managing edge cases like responsive design and conditional rendering. Additionally, the continuous synchronization required a robust error-handling system to prevent conflicts during development.
+The concept is an automated pipeline: Figma becomes the single source of truth, and code generation handles the repetitive translation.
 
-## Outcome
+A **design system remains the single source of truth** for both designers and developers, making it easy to maintain consistency even as the product evolves.
 
-The automated Figma to code pipeline has streamlined the handoff process, cutting down design-to-development time by 40%. Designers now have more confidence that their designs will be accurately translated into code, and developers can focus on more complex logic and feature development. This project has proven the value of automation in bridging the gap between design and development.
+## 04 · Design Process
 
----
+The pipeline was built as a set of connected pieces:
 
-This project demonstrates your ability to leverage automation and streamline workflows, which is highly relevant for design engineering portfolios focused on efficiency and innovation.
+- **Figma Plugin Integration** — a custom Figma plugin that extracts design tokens such as colors, typography, and spacing values, and exports them in a format compatible with the codebase.
+- **Code Generation** — an automated process that translates Figma components into React code using design tokens and pre-built component templates, letting developers focus on logic rather than repetitive UI coding.
+- **Continuous Sync** — a CI/CD pipeline that continuously synchronizes design changes from Figma to the codebase, so design updates are reflected instantly.
+
+One of the biggest challenges was ensuring the generated code stayed clean and maintainable. This meant setting up intelligent mapping between Figma components and React code structures, managing edge cases like responsive design and conditional rendering, and adding robust error handling so continuous synchronization never introduced conflicts.
+
+## 05 · Final Design
+
+The finished workflow runs on:
+
+- **Figma API** — extracting design tokens and component data directly from the Figma designs.
+- **React and Next.js** — the front-end codebase with clean, reusable components.
+- **Styled-Components** — managing styles dynamically using design tokens.
+- **GitHub Actions** — automating the pipeline and syncing design changes to the repository.
+
+## 06 · Outcome
+
+The automated Figma-to-code pipeline streamlines the handoff process by removing the repetitive translation work between design and implementation.
+
+Designers gain more confidence that their designs will be accurately translated into code, and developers can focus on more complex logic and feature development. The project demonstrates how automation can bridge the gap between design and development.
