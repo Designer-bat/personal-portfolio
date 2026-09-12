@@ -16,7 +16,14 @@ type Metadata = {
   summary: string;
   image?: string;
   images: string[];
-  tag?: string;
+  /** Project discipline, e.g. "Brand Identity" — shown as the card category */
+  category?: string;
+  /** Technology / design tags rendered as pills on the project card */
+  tags?: string[];
+  /** Optional view count shown on the project card overlay */
+  views?: number;
+  /** Optional like count shown on the project card overlay */
+  likes?: number;
   team: Team[];
   link?: string;
 };
@@ -46,7 +53,10 @@ function readMDXFile(filePath: string) {
     summary: data.summary || "",
     image: data.image || "",
     images: data.images || [],
-    tag: data.tag || [],
+    category: data.category || "",
+    tags: data.tags || [],
+    views: data.views,
+    likes: data.likes,
     team: data.team || [],
     link: data.link || "",
   };

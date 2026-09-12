@@ -1,17 +1,24 @@
-.hover {
-    transition: var(--transition-micro-medium);
+@use "../breakpoints" as bp;
 
-    &:hover {
-        transform: translateX(var(--static-space-8));
+/* =====================================================
+   PROJECT GRID
+   Desktop 3 columns → tablet 2 → mobile 1.
+===================================================== */
 
-        .indicator {
-            transform: rotate(0);
-        }
-    }
-}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 28px;
+  width: 100%;
+  margin-bottom: 40px;
 
-.indicator {
-    transform: rotate(-90deg);
-    left: -2rem;
-    transition: var(--transition-micro-medium);
+  @include bp.m {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px 24px;
+  }
+
+  @include bp.s {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }

@@ -1,0 +1,258 @@
+/* =====================================================
+   BEHANCE-INSPIRED PROJECT CARD
+   Image-first card with subtle hover interactions.
+   Colors resolve through Once UI theme tokens so the
+   card adapts to dark / light automatically.
+===================================================== */
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  /* No borders at rest — whitespace separates cards */
+  border-radius: var(--radius-m);
+  text-decoration: none;
+  color: inherit;
+
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 18px 40px -12px
+      rgba(0, 0, 0, 0.28),
+      0 2px 6px
+      rgba(0, 0, 0, 0.04);
+
+    .thumb {
+      transform: scale(1.04);
+    }
+
+    .stats,
+    .viewPill {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--brand-background-strong);
+    outline-offset: 4px;
+    border-radius: var(--radius-m);
+  }
+}
+
+/* Soft luminous lift in dark mode, where a black shadow is invisible.
+   `data-theme` is always "dark" or "light" after the theme-init script. */
+:global(html[data-theme="dark"]) .card {
+  &:hover {
+    box-shadow:
+      0 18px 50px -16px
+      rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* =====================================================
+   IMAGE AREA
+===================================================== */
+
+.mediaWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--neutral-background-weak);
+}
+
+.thumb {
+  object-fit: cover;
+  transform: scale(1.001); /* avoid sub-pixel gaps at the rounded edge */
+  transition:
+    transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 250ms ease;
+}
+
+/* =====================================================
+   STATS OVERLAY (views / likes)
+   Frosted chip, bottom-left of the image. Revealed on hover.
+===================================================== */
+
+.stats {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 6px 14px;
+
+  border-radius: var(--radius-full);
+  background: rgba(10, 12, 18, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  svg {
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   "VIEW PROJECT" PILL
+   Bottom-right of the image, revealed on hover.
+===================================================== */
+
+.viewPill {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 14px;
+
+  border-radius: var(--radius-full);
+  background: var(--page-background);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+
+  color: var(--neutral-on-background-strong);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+
+  svg {
+    font-size: 13px;
+  }
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  padding: 14px 2px 8px;
+  min-width: 0;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--brand-on-background-weak);
+}
+
+.year {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--neutral-on-background-weak);
+
+  &::before {
+    content: "•";
+    margin-right: 10px;
+    opacity: 0.5;
+  }
+}
+
+.title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--neutral-on-background-strong);
+}
+
+.desc {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--neutral-on-background-weak);
+
+  /* Cap long descriptions so cards stay even in height */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.tag {
+  padding: 4px 10px;
+
+  border-radius: var(--radius-full);
+  background: var(--neutral-background-weak);
+
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--neutral-on-background-weak);
+  white-space: nowrap;
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .thumb,
+  .stats,
+  .viewPill {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
