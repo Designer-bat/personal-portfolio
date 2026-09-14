@@ -2,19 +2,9 @@ import { Column, Meta, Schema } from "@once-ui-system/core";
 
 import { baseURL, devProjects, home, person, social } from "@/resources";
 import { getPosts } from "@/utils/utils";
-import { ProjectCard } from "@/components";
+import { ProjectCard, SkillsMarquee } from "@/components";
 
 import { HiArrowUpRight } from "react-icons/hi2";
-
-import { MdDesignServices, MdPalette, MdShare, MdStyle } from "react-icons/md";
-
-import {
-  SiGit,
-  SiHtml5,
-  SiJavascript,
-  SiMysql,
-  SiPhp,
-} from "react-icons/si";
 
 
 /* =====================================================
@@ -24,26 +14,6 @@ import {
 const featuredPosts = getPosts(["src", "app", "work", "projects"]).sort((a, b) => {
   return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
 });
-
-
-/* =====================================================
-   SKILLS
-===================================================== */
-
-const designSkills = [
-  { name: "Brand Identity", icon: MdStyle },
-  { name: "Graphic Design", icon: MdPalette },
-  { name: "UI/UX Design", icon: MdDesignServices },
-  { name: "Social Media Design", icon: MdShare },
-];
-
-const devSkills = [
-  { name: "HTML/CSS", icon: SiHtml5 },
-  { name: "JavaScript", icon: SiJavascript },
-  { name: "PHP", icon: SiPhp },
-  { name: "MySQL", icon: SiMysql },
-  { name: "Git", icon: SiGit },
-];
 
 
 /* =====================================================
@@ -137,22 +107,16 @@ export default function Home() {
             </div>
 
             <h1 className="reference-title">
-              Ramesh Tiwari
+              Hi, I'm Ramesh Tiwari
+              
               <br />
               <span className="reference-accent">
-                Graphic Designer &amp; UI/UX Designer
+                Designer &amp; Developer
               </span>
             </h1>
 
-            <div className="reference-role">
-              BIM Student · Aspiring Developer
-            </div>
-
-            <p className="reference-description">
-              I combine visual design, UI/UX, and branding with technology to
-              turn ideas into clear, premium digital experiences.
-            </p>
-
+           <br />
+            <br />
             <div className="reference-cta">
               <a href="/#projects" className="reference-button">
                 View My Work
@@ -161,14 +125,6 @@ export default function Home() {
               <a href="#contact" className="reference-button reference-button-ghost">
                 Let's Work Together
               </a>
-            </div>
-
-            <div className="reference-services">
-              <span>UI/UX Design</span>
-              <span>Brand Identity</span>
-              <span>Graphic Design</span>
-              <span>Web Design</span>
-              <span>Development</span>
             </div>
 
           </div>
@@ -204,11 +160,7 @@ export default function Home() {
       <section id="projects" className="reference-section">
         <div className="reference-section-label">Selected Work</div>
         <h2>Designing and building from idea to launch.</h2>
-        <p>
-          Brand identities, product interfaces, and the frontend work behind
-          them — a closer look at the process for each project.
-        </p>
-
+        
         <div className="reference-featured-grid">
           {featuredPosts.map((post, index) => (
             <ProjectCard
@@ -218,9 +170,6 @@ export default function Home() {
               image={post.metadata.image}
               images={post.metadata.images}
               title={post.metadata.title}
-              description={post.metadata.summary}
-              category={post.metadata.category}
-              tags={post.metadata.tags}
               publishedAt={post.metadata.publishedAt}
             />
           ))}
@@ -324,53 +273,10 @@ export default function Home() {
 
 
       {/* =================================================
-          SKILLS
+          SKILLS — tool marquee (Graphic Design / UI/UX / Dev)
       ================================================= */}
 
-      <section id="skills" className="reference-section skills-section">
-        <div className="reference-section-label">Skills</div>
-        <h2>Design, development, and everything in between.</h2>
-
-        <div className="skills-groups">
-
-          <div className="skills-group">
-            <div className="skills-group-head">
-              <span className="skills-group-title">Design</span>
-              <p>Identity, layout, and interface craft.</p>
-            </div>
-            <div className="skills-list">
-              {designSkills.map((skill) => {
-                const Icon = skill.icon;
-                return (
-                  <span className="skill-chip" key={skill.name}>
-                    <Icon aria-hidden="true" />
-                    {skill.name}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="skills-group">
-            <div className="skills-group-head">
-              <span className="skills-group-title">Development</span>
-              <p>Clean, responsive frontend and web systems.</p>
-            </div>
-            <div className="skills-list">
-              {devSkills.map((skill) => {
-                const Icon = skill.icon;
-                return (
-                  <span className="skill-chip" key={skill.name}>
-                    <Icon aria-hidden="true" />
-                    {skill.name}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
-      </section>
+      <SkillsMarquee />
 
 
       {/* =================================================

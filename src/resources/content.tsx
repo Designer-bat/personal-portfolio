@@ -5,9 +5,9 @@ const person: Person = {
   firstName: "Ramesh",
   lastName: "Tiwari",
   name: "Ramesh Tiwari",
-  role: "Graphic Designer & UI/UX Designer",
+  role: "Visual Designer & Developer",
   avatar: "/images/avatar.jpg",
-  email: "hello@ramesh.dev",
+  email: "eswobtik.tiwari@gmail.com",
   location: "Asia/Kathmandu",
   languages: ["English", "Nepali"],
   locale: "en",
@@ -137,7 +137,7 @@ const about: About = {
     title: "Education",
     institutions: [
       {
-        name: "BIM — Tribhuvan University",
+        name: "Bachelor in Information Technology — Tribhuvan University",
         description: <>Building a strong foundation in technology, systems thinking, and product development.</>,
       },
       {

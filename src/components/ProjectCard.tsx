@@ -14,7 +14,7 @@ interface ProjectCardProps {
   /** Project title */
   title: string;
   /** Short description shown under the title */
-  description: string;
+  description?: string;
   /** Project discipline, e.g. "Brand Identity" */
   category?: string;
   /** Technology / design tags rendered as pills */

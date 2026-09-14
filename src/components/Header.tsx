@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
+import { Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, work, gallery, contact } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
@@ -47,31 +47,15 @@ export const Header = () => {
 
   return (
     <>
-      <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
-      <Fade
-        hide
-        s={{ hide: false }}
-        fillWidth
-        position="fixed"
-        bottom="0"
-        to="top"
-        height="80"
-        zIndex={9}
-      />
       <Row
-        fitHeight
-        className={styles.position}
-        position="sticky"
-        as="header"
-        zIndex={9}
-        fillWidth
-        padding="8"
-        horizontal="center"
-        data-border="rounded"
-        s={{
-          position: "fixed",
-        }}
-      >
+          fitHeight
+          className={styles.position}
+          position="fixed"
+          as="header"
+          fillWidth
+          horizontal="center"
+          data-border="rounded"
+        >
         <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {display.location && <Row s={{ hide: true }}>{person.location}</Row>}
         </Row>
@@ -186,7 +170,7 @@ export const Header = () => {
             horizontal="end"
             vertical="center"
             textVariant="body-default-s"
-            gap="20"
+            gap="0"
           >
             <Flex s={{ hide: true }}>
               {display.time && <TimeDisplay timeZone={person.location} />}

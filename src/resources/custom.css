@@ -168,7 +168,7 @@ body {
 
   width: 100%;
 
-  min-height: 620px;
+  min-height: 20px;
 
   display: grid;
 
@@ -762,157 +762,324 @@ body {
 }
 
 
-/* =====================================================
-   SKILLS GROUPS
-   Clean, static two-column layout — Design / Development.
-===================================================== */
-
-.skills-groups {
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      2,
-      minmax(
-        0,
-        1fr
-      )
-    );
-
-  gap: 18px;
-
-  margin-top: 45px;
-}
+.skills-marquee-section {
+  /* Theme tokens — flipped by the light-theme block below */
 
 
-.skills-group {
-  padding: 30px;
+  --skills-band-fade: #05060d;
 
-  border:
-    1px solid
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    110px
+    0
+    90px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      55% 90% at 50% -10%,
+      rgba(99, 102, 241, 0.14),
+      transparent 62%
+    ),
+    radial-gradient(
+      40% 70% at 100% 110%,
+      rgba(59, 130, 246, 0.10),
+      transparent 60%
+    ),
+    var(--skills-band);
+
+  border-top: 1px solid
     var(--pf-line);
 
-  border-radius: 18px;
-
-  background: var(--pf-panel);
-
-  transition:
-    border-color 180ms ease,
-    background 180ms ease;
+  border-bottom: 1px solid
+    var(--pf-line);
 }
 
 
-.skills-group:hover {
-  border-color:
-    rgba(
-      129,
-      140,
-      248,
-      0.4
+/* Heading */
+
+.skills-marquee-head {
+  text-align: auto;
+
+  padding: 0 24px;
+
+  margin-bottom: 70px;
+}
+
+
+.skills-marquee-head .reference-section-label {
+  margin-bottom: 20px;
+  text-align: left;
+  margin-left: 120px;
+}
+
+
+.skills-marquee-head h2 {
+  max-width: 900px;
+  text-align: left;
+    margin: 0 0 25px 120px;
+
+
+  font-size:
+    clamp(
+      36px,
+      4vw,
+      60px
     );
 
-  background: var(--pf-panel-hover);
+  line-height: 1.02;
+
+  letter-spacing: -0.045em;
+
+  color: #f8fafc;
 }
 
 
-.skills-group-head {
+/* Rows */
+
+.skills-marquee-stack {
   display: flex;
 
   flex-direction: column;
 
-  gap: 6px;
-
-  margin-bottom: 22px;
+  gap: 40px;
 }
 
 
-.skills-group-title {
-  font-size: 13px;
-
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  color: var(--pf-accent-soft);
-}
-
-
-.skills-group-head p {
-  margin: 0;
-
-  font-size: 13px;
-
-  line-height: 1.5;
-
-  color: var(--pf-body);
-}
-
-
-.skills-list {
+.skills-marquee-label {
   display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-}
-
-
-.skill-chip {
-  display: inline-flex;
 
   align-items: center;
 
-  gap: 8px;
+  gap: 14px;
+
+  padding: 0 56px;
+
+  margin-bottom: 20px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  color: var(--pf-muted);
+}
+
+
+.skills-marquee-label::after {
+  content: "";
+
+  flex: 1;
+
+  max-width: 340px;
+
+  height: 1px;
+
+  background: linear-gradient(
+    to right,
+    var(--pf-line),
+    transparent
+  );
+}
+
+
+.skills-marquee-row {
+  --marquee-gap: 72px;
+
+  position: relative;
+
+  overflow: hidden;
 
   padding:
-    9px
+    6px
+    0
     14px;
+}
 
-  border-radius: 100px;
 
-  background:
-    rgba(
-      99,
-      102,
-      241,
-      0.12
+.skills-marquee-track {
+  display: flex;
+
+  width: max-content;
+
+  transform: translate3d(0, 0, 0);
+
+  will-change: transform;
+
+  animation: skills-marquee
+    var(--marquee-duration, 40s)
+    linear infinite;
+}
+
+
+.skills-marquee-row[data-direction="right"]
+.skills-marquee-track {
+  animation-direction: reverse;
+}
+
+
+/* Pause animation while the cursor rests on a row */
+
+.skills-marquee-row:hover .skills-marquee-track,
+.skills-marquee-row:focus-within .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+
+.skills-marquee-group {
+  display: flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+
+  gap: var(--marquee-gap);
+
+  padding-right: var(--marquee-gap);
+}
+
+
+.skills-marquee-icon {
+  position: relative;
+
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size:
+    clamp(
+      32px,
+      2.8vw,
+      46px
     );
 
-  font-size: 12px;
+  color: var(--brand, #f8fafc);
 
-  font-weight: 500;
+  opacity: 0.92;
 
-  color: #a5b4fc;
-
-  white-space: nowrap;
+  transform: translateZ(0);
 
   transition:
-    background 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+    transform 240ms ease,
+    opacity 240ms ease,
+    filter 240ms ease;
 }
 
 
-.skill-chip svg {
-  font-size: 15px;
+.skills-marquee-icon svg {
+  display: block;
+
+  filter: drop-shadow(
+    0 6px 16px
+    rgba(2, 6, 23, 0.35)
+  );
 }
 
 
-.skill-chip:hover {
-  transform:
-    translateY(-2px);
+/* Soft brand-colored halo that blooms behind the icon */
 
-  background:
-    rgba(
-      99,
-      102,
-      241,
-      0.22
-    );
+.skills-marquee-icon::after {
+  content: "";
 
-  color: #ffffff;
+  position: absolute;
+
+  inset: -28%;
+
+  z-index: -1;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    closest-side,
+    var(--brand),
+    transparent 72%
+  );
+
+  opacity: 0;
+
+  transition: opacity 240ms ease;
+
+  filter: blur(8px);
+}
+
+
+.skills-marquee-icon:hover {
+  opacity: 1;
+
+  transform: scale(1.14) translateZ(0);
+
+  filter: brightness(1.18);
+}
+
+
+.skills-marquee-icon:hover::after {
+  opacity: 0.32;
+}
+
+
+.skills-marquee-icon:focus-visible {
+  outline: 2px solid var(--brand);
+
+  outline-offset: 6px;
+
+  border-radius: 10px;
+}
+
+
+/* Edge fades — rows dissolve into the dark band */
+
+.skills-marquee-fade {
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  width: 150px;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+
+.skills-marquee-fade--left {
+  left: 0;
+
+  background: linear-gradient(
+    to right,
+    var(--skills-band-fade),
+    transparent
+  );
+}
+
+
+.skills-marquee-fade--right {
+  right: 0;
+
+  background: linear-gradient(
+    to left,
+    var(--skills-band-fade),
+    transparent
+  );
+}
+
+
+@keyframes skills-marquee {
+  to {
+    transform: translate3d(-25%, 0, 0);
+  }
 }
 
 
@@ -1601,8 +1768,41 @@ body {
   }
 
 
-  .skills-groups {
-    gap: 14px;
+  .skills-marquee-section {
+    padding:
+      84px
+      0
+      70px;
+  }
+
+
+  .skills-marquee-head {
+    margin-bottom: 54px;
+  }
+
+
+  .skills-marquee-row {
+    --marquee-gap: 52px;
+  }
+
+
+  .skills-marquee-icon {
+    font-size:
+      clamp(
+        26px,
+        4vw,
+        34px
+      );
+  }
+
+
+  .skills-marquee-label {
+    padding: 0 36px;
+  }
+
+
+  .skills-marquee-fade {
+    width: 90px;
   }
 
 
@@ -1857,27 +2057,63 @@ body {
 
 
   /* =================================================
-     SKILLS MOBILE
+     SKILLS MARQUEE MOBILE
   ================================================= */
 
-  .skills-groups {
-    grid-template-columns: 1fr;
-
-    gap: 14px;
-
-    margin-top: 32px;
+  .skills-marquee-section {
+    padding:
+      72px
+      0
+      60px;
   }
 
 
-  .skills-group {
-    padding: 22px;
+  .skills-marquee-head {
+    margin-bottom: 46px;
   }
 
 
-  .skill-chip {
-    padding: 8px 12px;
+  .skills-marquee-head h2 {
+    font-size:
+      clamp(
+        30px,
+        6.5vw,
+        40px
+      );
 
-    font-size: 11px;
+    line-height: 1.08;
+  }
+
+
+  .skills-marquee-stack {
+    gap: 30px;
+  }
+
+
+  .skills-marquee-row {
+    --marquee-gap: 40px;
+  }
+
+
+  .skills-marquee-label {
+    padding: 0 22px;
+
+    margin-bottom: 16px;
+  }
+
+
+  .skills-marquee-icon {
+    font-size:
+      clamp(
+        24px,
+        5vw,
+        30px
+      );
+  }
+
+
+  .skills-marquee-fade {
+    width: 56px;
   }
 
 
@@ -2051,25 +2287,58 @@ body {
 
 
   /* =================================================
-     SKILLS SMALL MOBILE
+     SKILLS MARQUEE SMALL MOBILE
   ================================================= */
 
-  .skills-groups {
-    margin-top: 28px;
+  .skills-marquee-section {
+    padding:
+      60px
+      0
+      50px;
   }
 
 
-  .skills-group {
-    padding: 18px;
+  .skills-marquee-head {
+    padding: 0 16px;
+
+    margin-bottom: 38px;
   }
 
 
-  .skill-chip {
-    padding: 7px 11px;
+  .skills-marquee-head h2 {
+    font-size:
+      clamp(
+        27px,
+        7.5vw,
+        34px
+      );
+  }
 
-    font-size: 11px;
 
-    gap: 6px;
+  .skills-marquee-row {
+    --marquee-gap: 34px;
+  }
+
+
+  .skills-marquee-label {
+    padding: 0 16px;
+
+    font-size: 10px;
+  }
+
+
+  .skills-marquee-icon {
+    font-size:
+      clamp(
+        21px,
+        6vw,
+        26px
+      );
+  }
+
+
+  .skills-marquee-fade {
+    width: 40px;
   }
 
 
@@ -2435,18 +2704,67 @@ html[data-theme="light"]
 
 
 /* =====================================================
-   LIGHT THEME — SKILLS
+   LIGHT THEME — SKILLS MARQUEE
+   The band follows the site theme: near-black in dark
+   mode, a soft white panel in light mode.
 ===================================================== */
 
-html[data-theme="light"]
-.skill-chip {
-  color: #4338ca;
+/* GitHub's mark is black by nature; show it light on the
+   dark band, black on the light band. `!important` wins
+   over the inline `--brand` used by other icons. */
+
+.skills-marquee-icon--github {
+  color: #e6edf3 !important;
 }
 
 
 html[data-theme="light"]
-.skill-chip:hover {
-  color: #312e81;
+.skills-marquee-section {
+  --skills-band:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  --skills-band-fade:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  background:
+    radial-gradient(
+      55% 90% at 50% -10%,
+      rgba(99, 102, 241, 0.06),
+      transparent 62%
+    ),
+    radial-gradient(
+      40% 70% at 100% 110%,
+      rgba(59, 130, 246, 0.05),
+      transparent 60%
+    ),
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+}
+
+
+html[data-theme="light"]
+.skills-marquee-head h2 {
+  color: #0f172a;
+}
+
+
+html[data-theme="light"]
+.skills-marquee-icon--github {
+  color: #181717 !important;
 }
 
 
@@ -2692,11 +3010,26 @@ html[data-theme="light"]
   }
 
 
-  .skill-chip,
   .reference-service,
   .reference-project,
   .reference-dev-row,
   .reference-button {
+    transition: none;
+  }
+
+
+  .skills-marquee-track {
+    animation: none;
+  }
+
+
+  .skills-marquee-group--copy {
+    display: none;
+  }
+
+
+  .skills-marquee-icon,
+  .skills-marquee-icon::after {
     transition: none;
   }
 
