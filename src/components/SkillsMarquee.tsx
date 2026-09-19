@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import type { SimpleIcon } from "simple-icons";
+import { RevealSection } from "@/components/Motion";
 
 import {
   siAdobeaftereffects,
@@ -169,7 +170,7 @@ function MarqueeRow({ row }: { row: MarqueeRow }) {
 
 export function SkillsMarquee() {
   return (
-    <section id="skills" className="skills-marquee-section">
+    <RevealSection id="skills" className="skills-marquee-section">
       <div className="skills-marquee-head">
         {/* LEFT CONTENT */}
         <div className="reference-section-label">Skills &amp; Tools</div>
@@ -181,6 +182,6 @@ export function SkillsMarquee() {
           <MarqueeRow key={row.label} row={row} />
         ))}
       </div>
-    </section>
+    </RevealSection>
   );
 }

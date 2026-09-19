@@ -2,7 +2,15 @@ import { Column, Meta, Schema } from "@once-ui-system/core";
 
 import { baseURL, devProjects, home, person, social } from "@/resources";
 import { getPosts } from "@/utils/utils";
-import { ProjectCard, SkillsMarquee } from "@/components";
+import {
+  ProjectCard,
+  AsciiScene,
+  Reveal,
+  RevealSection,
+  SkillsMarquee,
+  Stagger,
+  StaggerItem,
+} from "@/components";
 
 import { HiArrowUpRight } from "react-icons/hi2";
 
@@ -101,23 +109,25 @@ export default function Home() {
           {/* LEFT CONTENT */}
           <div className="reference-hero-content">
 
-            <div className="reference-eyebrow">
+            <Reveal className="reference-eyebrow">
               <span className="reference-dot" />
               Available for freelance
-            </div>
+            </Reveal>
 
-            <h1 className="reference-title">
-              Hi, I'm Ramesh Tiwari
-              
-              <br />
-              <span className="reference-accent">
-                Designer &amp; Developer
-              </span>
-            </h1>
+            <Reveal delay={0.08}>
+              <h1 className="reference-title">
+                Hi, I'm Ramesh Tiwari
+
+                <br />
+                <span className="reference-accent">
+                  Designer &amp; Developer
+                </span>
+              </h1>
+            </Reveal>
 
            <br />
             <br />
-            <div className="reference-cta">
+            <Reveal className="reference-cta" delay={0.16}>
               <a href="/#projects" className="reference-button">
                 View My Work
                 <span aria-hidden="true">→</span>
@@ -125,12 +135,12 @@ export default function Home() {
               <a href="#contact" className="reference-button reference-button-ghost">
                 Let's Work Together
               </a>
-            </div>
+            </Reveal>
 
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="reference-hero-image">
+          <Reveal className="reference-hero-image" delay={0.18}>
 
             <div className="reference-decoration decoration-1" />
             <div className="reference-decoration decoration-2" />
@@ -141,13 +151,9 @@ export default function Home() {
 
             <div className="reference-image-glow" />
 
-            <img
-              src={person.avatar}
-              alt={`${person.name} — portrait`}
-              className="reference-person"
-            />
+            <AsciiScene />
 
-          </div>
+          </Reveal>
 
         </div>
       </section>
@@ -157,68 +163,66 @@ export default function Home() {
           SELECTED WORK
       ================================================= */}
 
-      <section id="projects" className="reference-section">
+      <RevealSection id="projects" className="reference-section">
         <div className="reference-section-label">Selected Work</div>
         <h2>Designing and building from idea to launch.</h2>
         
-        <div className="reference-featured-grid">
+        <Stagger className="reference-featured-grid">
           {featuredPosts.map((post, index) => (
-            <ProjectCard
-              priority={index < 2}
-              key={post.slug}
-              href={`/work/${post.slug}`}
-              image={post.metadata.image}
-              images={post.metadata.images}
-              title={post.metadata.title}
-              publishedAt={post.metadata.publishedAt}
-            />
+            <StaggerItem key={post.slug}>
+              <ProjectCard
+                priority={index < 2}
+                href={`/work/${post.slug}`}
+                image={post.metadata.image}
+                images={post.metadata.images}
+                title={post.metadata.title}
+                publishedAt={post.metadata.publishedAt}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
 
         <a href="/work" className="reference-text-link">
           View all work <span aria-hidden="true">→</span>
         </a>
-      </section>
+      </RevealSection>
 
 
       {/* =================================================
           DESIGN HIGHLIGHTS
       ================================================= */}
 
-      <section id="design" className="reference-section">
+      <RevealSection id="design" className="reference-section">
         <div className="reference-section-label">Graphic Design</div>
         <h2>Brand systems and visual storytelling.</h2>
 
-        <div className="reference-project-grid">
+        <Stagger className="reference-project-grid">
           {designHighlights.map(
             (item) => (
-              <div
-                key={item.title}
-                className="reference-project"
-              >
-                <span>{item.category}</span>
-                <h3>{item.title}</h3>
+              <StaggerItem key={item.title} className="reference-project">
+                  <span>{item.category}</span>
+                  <h3>{item.title}</h3>
 
-                <a
-                  href="https://www.behance.net/Rameshtiwari_"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="reference-text-link"
-                >
-                  View Behance <HiArrowUpRight aria-hidden="true" />
-                </a>
-              </div>
+                  <a
+                    href="https://www.behance.net/Rameshtiwari_"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="reference-text-link"
+                  >
+                    View Behance <HiArrowUpRight aria-hidden="true" />
+                  </a>
+              </StaggerItem>
             )
           )}
-        </div>
-      </section>
+        </Stagger>
+      </RevealSection>
 
 
       {/* =================================================
           DEVELOPMENT
       ================================================= */}
 
-      <section id="development" className="reference-section">
+      <RevealSection id="development" className="reference-section">
         <div className="reference-section-label">Development</div>
         <h2>Practical products, built end to end.</h2>
         <p>
@@ -226,41 +230,42 @@ export default function Home() {
           from storefronts to management systems.
         </p>
 
-        <div className="reference-dev-rows">
+        <Stagger className="reference-dev-rows">
           {devProjects.map((project) => (
-            <a
-              key={project.title}
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="reference-dev-row"
-            >
-              <div className="reference-dev-main">
-                <span className="reference-dev-category">{project.category}</span>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
+            <StaggerItem key={project.title}>
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="reference-dev-row"
+              >
+                <div className="reference-dev-main">
+                  <span className="reference-dev-category">{project.category}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
 
-                <div className="reference-project-tags">
-                  {project.tags.map((tag) => (
-                    <small key={tag}>{tag}</small>
-                  ))}
+                  <div className="reference-project-tags">
+                    {project.tags.map((tag) => (
+                      <small key={tag}>{tag}</small>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <span className="reference-dev-link">
-                GitHub <HiArrowUpRight aria-hidden="true" />
-              </span>
-            </a>
+                <span className="reference-dev-link">
+                  GitHub <HiArrowUpRight aria-hidden="true" />
+                </span>
+              </a>
+            </StaggerItem>
           ))}
-        </div>
-      </section>
+        </Stagger>
+      </RevealSection>
 
 
       {/* =================================================
           ABOUT
       ================================================= */}
 
-      <section id="about" className="reference-section">
+      <RevealSection id="about" className="reference-section">
         <div className="reference-section-label">About</div>
         <h2>I build work that feels considered, elegant, and clear.</h2>
         <p>
@@ -269,7 +274,7 @@ export default function Home() {
           turning ideas into clear visual identities and practical digital
           experiences.
         </p>
-      </section>
+      </RevealSection>
 
 
       {/* =================================================
@@ -283,28 +288,28 @@ export default function Home() {
           SERVICES
       ================================================= */}
 
-      <section id="services" className="reference-section">
+      <RevealSection id="services" className="reference-section">
         <div className="reference-section-label">Services</div>
         <h2>What I can help you build.</h2>
 
-        <div className="reference-service-grid">
+        <Stagger className="reference-service-grid">
           {services.map((service) => (
-            <div key={service} className="reference-service">
-              <h3>{service}</h3>
-              <p>
-                Thoughtful, practical, and conversion-focused execution.
-              </p>
-            </div>
+            <StaggerItem key={service} className="reference-service">
+                <h3>{service}</h3>
+                <p>
+                  Thoughtful, practical, and conversion-focused execution.
+                </p>
+            </StaggerItem>
           ))}
-        </div>
-      </section>
+        </Stagger>
+      </RevealSection>
 
 
       {/* =================================================
           CONTACT
       ================================================= */}
 
-      <section id="contact" className="reference-contact">
+      <RevealSection id="contact" className="reference-contact">
         <div className="reference-section-label">Contact</div>
 
         <h2>
@@ -336,7 +341,7 @@ export default function Home() {
             </a>
           ))}
         </div>
-      </section>
+      </RevealSection>
 
     </Column>
   );

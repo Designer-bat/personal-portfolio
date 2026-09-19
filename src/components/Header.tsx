@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion, useScroll } from "motion/react";
 
 import { Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
@@ -44,18 +45,32 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
       <Row
           fitHeight
-          className={styles.position}
+          className={`${styles.position} ${scrolled ? styles.scrolled : ""}`}
           position="fixed"
           as="header"
           fillWidth
           horizontal="center"
           data-border="rounded"
         >
+        <motion.div
+          className={styles.progress}
+          style={{ scaleX: scrollYProgress }}
+          aria-hidden="true"
+        />
         <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {display.location && <Row s={{ hide: true }}>{person.location}</Row>}
         </Row>

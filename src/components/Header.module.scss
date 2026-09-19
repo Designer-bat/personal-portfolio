@@ -15,4 +15,29 @@
     right: 0;
     width: 100%;
     z-index: 1000;
+    transition:
+        background-color 240ms ease,
+        filter 240ms ease;
+}
+
+.position.scrolled {
+    filter: drop-shadow(0 10px 20px rgba(2, 6, 23, 0.08));
+}
+
+.progress {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 2;
+    transform-origin: 0 50%;
+    background: var(--brand-background-strong);
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .position {
+        transition: none;
+    }
 }

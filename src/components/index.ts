@@ -8,5 +8,7 @@ export { RouteGuard } from "@/components/RouteGuard";
 export { Providers } from "@/components/Providers";
 export { ScrollToHash } from "@/components/ScrollToHash";
 export { ThemeToggle } from "@/components/ThemeToggle";
+export { Reveal, RevealSection, Stagger, StaggerItem } from "@/components/Motion";
+export { AsciiScene } from "@/components/AsciiScene";
 export { CustomMDX } from "@/components/mdx";
 export { WorkGallery } from "@/components/work/WorkGallery";
