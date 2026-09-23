@@ -7,7 +7,24 @@ import styles from "./AsciiScene.module.scss";
 
 const FONT_URL =
   "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_regular.typeface.json";
-const MAX_INSTANCES = 4200;
+const MAX_INSTANCES = 6500;
+const FIT_PADDING = 0.80;
+// How strongly each instance's z is exaggerated into depth. Lower this to
+// flatten the relief (sharper, calmer face) at the cost of a less dramatic
+// 3D hair effect.
+const DEPTH_MULTIPLIER = 4;
+// Bump these up to close the gaps between neighboring characters so the
+// field reads as continuous coverage instead of visibly separate glyphs.
+// CHAR_SIZE grows each glyph; CHAR_WIDTH_SCALE controls how squeezed
+// horizontally they are (1 = natural letter proportions, more overlap
+// with neighbors side-to-side).
+const CHAR_SIZE = 1.4;
+const CHAR_WIDTH_SCALE = 0.85;
+
+// If the container never reports a real size within this window, warn
+// instead of silently hanging forever (usually a layout/CSS issue upstream:
+// .scene is position:absolute and needs an ancestor with a real height).
+const SIZE_TIMEOUT_MS = 4000;
 
 export function AsciiScene() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,6 +34,61 @@ export function AsciiScene() {
     let cleanup: (() => void) | undefined;
 
     async function initialize() {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Drive startup off ResizeObserver instead of polling rAF: it fires
+      // as soon as the container has a real laid-out size, and we can bail
+      // out with a clear warning if that never happens instead of hanging.
+      const size = await new Promise<{ width: number; height: number } | null>(
+        (resolve) => {
+          if (disposed) {
+            resolve(null);
+            return;
+          }
+
+          if (container.clientWidth > 0 && container.clientHeight > 0) {
+            resolve({
+              width: container.clientWidth,
+              height: container.clientHeight,
+            });
+            return;
+          }
+
+          let settled = false;
+
+          const timeout = window.setTimeout(() => {
+            if (settled) return;
+            settled = true;
+            console.warn(
+              "AsciiScene: container never received a non-zero size. " +
+                "Check that every ancestor of the element with the " +
+                `"${styles.scene}" class has an explicit height — ` +
+                "position: absolute; inset: 0 alone cannot create one.",
+            );
+            observer.disconnect();
+            resolve(null);
+          }, SIZE_TIMEOUT_MS);
+
+          const observer = new ResizeObserver(() => {
+            if (settled) return;
+            if (container.clientWidth > 0 && container.clientHeight > 0) {
+              settled = true;
+              window.clearTimeout(timeout);
+              observer.disconnect();
+              resolve({
+                width: container.clientWidth,
+                height: container.clientHeight,
+              });
+            }
+          });
+
+          observer.observe(container);
+        },
+      );
+
+      if (disposed || !size) return;
+
       const [THREE, { OrbitControls }, { FontLoader }, { TextGeometry }] =
         await Promise.all([
           import("three"),
@@ -25,8 +97,7 @@ export function AsciiScene() {
           import("three/examples/jsm/geometries/TextGeometry.js"),
         ]);
 
-      const container = containerRef.current;
-      if (!container || disposed) return;
+      if (disposed) return;
 
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -34,7 +105,7 @@ export function AsciiScene() {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         34,
-        container.clientWidth / container.clientHeight,
+        size.width / size.height,
         0.1,
         2000,
       );
@@ -46,21 +117,14 @@ export function AsciiScene() {
         powerPreference: "high-performance",
       });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setSize(size.width, size.height);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.domElement.style.width = "100%";
+      renderer.domElement.style.height = "100%";
+      renderer.domElement.style.display = "block";
       container.appendChild(renderer.domElement);
 
       const artwork = new THREE.Group();
-      const scale = Math.min(
-        container.clientWidth / asciiData.dimensions.width,
-        container.clientHeight / asciiData.dimensions.height,
-      );
-      artwork.scale.setScalar(scale * 1.18);
-      artwork.position.set(
-        -asciiData.dimensions.width * scale * 0.5,
-        -asciiData.dimensions.height * scale * 0.5,
-        0,
-      );
       scene.add(artwork);
 
       const font = await new Promise<Font>((resolve, reject) => {
@@ -80,12 +144,12 @@ export function AsciiScene() {
         if (!geometry) {
           geometry = new TextGeometry(instance.char, {
             font,
-            size: 1,
+            size: CHAR_SIZE,
             depth: 0.02,
-            curveSegments: 1,
+            curveSegments: 4,
           });
           geometry.center();
-          geometry.scale(0.6, 1, 1);
+          geometry.scale(CHAR_WIDTH_SCALE, 1, 1);
           geometryCache.set(instance.char, geometry);
         }
 
@@ -94,15 +158,73 @@ export function AsciiScene() {
           material = new THREE.MeshBasicMaterial({
             color: instance.color,
             transparent: true,
-            opacity: 0.92,
+            opacity: 0.94,
+            // Was false: without depth writing, overlapping glyphs in dense
+            // areas (like the face) blend in draw order instead of properly
+            // occluding one another, reading as hazy/unclear. Sparse areas
+            // (hair strands) have little overlap so this mattered less there.
+            depthWrite: true,
           });
           materialCache.set(instance.color, material);
         }
 
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(instance.x, instance.y, instance.z * 10);
+        mesh.position.set(
+          instance.x,
+          instance.y,
+          instance.z * DEPTH_MULTIPLIER,
+        );
         artwork.add(mesh);
       });
+
+      // Fit the artwork to the camera's actual visible frustum, not to raw
+      // container pixels. With a PerspectiveCamera, the world-space area
+      // visible at a given depth is determined by fov/aspect/distance, not
+      // by pixel counts — treating pixels as world units (as an
+      // OrthographicCamera-style fit would) produces a wildly oversized
+      // scale, which also blows up the z-depth spread and causes severe
+      // near-camera perspective distortion.
+      const fitArtwork = () => {
+        if (!container.clientWidth || !container.clientHeight) return;
+
+        // Reset scale before measuring so we always fit from a known baseline.
+        artwork.scale.setScalar(1);
+
+        const box = new THREE.Box3().setFromObject(artwork);
+        const boxSize = new THREE.Vector3();
+        const center = new THREE.Vector3();
+        box.getSize(boxSize);
+        box.getCenter(center);
+
+        if (
+          boxSize.x <= 0 ||
+          boxSize.y <= 0 ||
+          !Number.isFinite(boxSize.x) ||
+          !Number.isFinite(boxSize.y)
+        ) {
+          return;
+        }
+
+        // World-space size visible at the artwork's depth.
+        const distance = camera.position.z - artwork.position.z;
+        const vFov = THREE.MathUtils.degToRad(camera.fov);
+        const visibleHeight = 2 * Math.tan(vFov / 2) * distance;
+        const visibleWidth = visibleHeight * camera.aspect;
+
+        const availableWidth = visibleWidth * FIT_PADDING;
+        const availableHeight = visibleHeight * FIT_PADDING;
+
+        const fitScale = Math.min(
+          availableWidth / boxSize.x,
+          availableHeight / boxSize.y,
+        );
+
+        artwork.scale.setScalar(fitScale);
+        artwork.position.x = -center.x * fitScale;
+        artwork.position.y = -center.y * fitScale;
+      };
+
+      fitArtwork();
 
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
@@ -121,9 +243,11 @@ export function AsciiScene() {
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);
+        // Re-fit whenever the container's size (or aspect) changes.
+        fitArtwork();
       };
-      const observer = new ResizeObserver(resize);
-      observer.observe(container);
+      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(container);
 
       let frame = 0;
       const animate = () => {
@@ -135,7 +259,7 @@ export function AsciiScene() {
 
       cleanup = () => {
         cancelAnimationFrame(frame);
-        observer.disconnect();
+        resizeObserver.disconnect();
         controls.dispose();
         geometryCache.forEach((geometry) => geometry.dispose());
         materialCache.forEach((material) => material.dispose());
