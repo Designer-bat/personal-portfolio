@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { HiOutlineEye, HiOutlineHeart, HiArrowUpRight } from "react-icons/hi2";
+import { HiArrowUpRight } from "react-icons/hi2";
 
 import styles from "./ProjectCard.module.scss";
 
@@ -33,19 +33,14 @@ interface ProjectCardProps {
  * Behance-inspired project card for the work grid.
  *
  * The whole card is a single link; hovering scales the cover slightly,
- * lifts the card, and reveals a "View Project" pill plus the views/likes
- * overlay on the image. All optional metadata fields are safe to omit.
+ * lifts the card, and reveals a "View Project" pill on the image.
+ * Only the title and publish year are shown below the cover.
  */
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
   image,
   images = [],
   title,
-  description,
-  category,
-  tags = [],
-  views,
-  likes,
   publishedAt,
   priority = false,
 }) => {
@@ -67,23 +62,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           />
         )}
 
-        {(views ?? likes) ? (
-          <div className={styles.stats} aria-label="Project stats">
-            {views ? (
-              <span className={styles.stat}>
-                <HiOutlineEye aria-hidden="true" />
-                {views.toLocaleString()}
-              </span>
-            ) : null}
-            {likes ? (
-              <span className={styles.stat}>
-                <HiOutlineHeart aria-hidden="true" />
-                {likes.toLocaleString()}
-              </span>
-            ) : null}
-          </div>
-        ) : null}
-
         <div className={styles.viewPill}>
           View Project
           <HiArrowUpRight aria-hidden="true" />
@@ -91,26 +69,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
 
       <div className={styles.body}>
-        {(category || year) && (
-          <div className={styles.metaRow}>
-            {category && <span className={styles.category}>{category}</span>}
-            {year && <span className={styles.year}>{year}</span>}
-          </div>
-        )}
-
         <h3 className={styles.title}>{title}</h3>
 
-        {description && <p className={styles.desc}>{description}</p>}
-
-        {tags.length > 0 && (
-          <div className={styles.tags}>
-            {tags.map((tag) => (
-              <span className={styles.tag} key={tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        {year && <span className={styles.year}>{year}</span>}
       </div>
     </a>
   );

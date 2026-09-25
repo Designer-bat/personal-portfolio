@@ -1,57 +1,68 @@
 ---
-title: "Automating Design Handovers with a Figma to Code Pipeline"
-publishedAt: "2024-04-01"
-category: "Development"
-tags: ["Figma", "React", "Pipeline"]
-summary: "A workflow that turns Figma designs into clean, production-ready code using design tokens, component libraries, and automated CI/CD — so design and code stay in sync."
+title: "GemiTech — Gaming Gear & Repair E-Commerce Website"
+publishedAt: "2026-09-25"
+category: "Web Design"
+tags: ["E-Commerce", "Gaming", "UI/UX", "Web Design"]
+summary: "A bold, modern e-commerce website concept for GemiTech, combining gaming hardware, peripherals, repair services, and tech content into an engaging digital shopping experience."
 images:
-  - "/images/projects/project-01/cover-02.jpg"
-  - "/images/projects/project-01/image-03.jpg"
+  - "/images/gallery/GemiTech-01.jpg"
 team:
   - name: "Ramesh Tiwari"
-    role: "Software Engineer"
+    role: "UI/UX Designer"
     avatar: "/images/avatar.jpg"
 ---
-
 ## 01 · Overview
 
-In this project, I focused on automating the often tedious design handover process. The goal was to create a pipeline that converts Figma designs directly into clean, production-ready code.
+GemiTech is a gaming-focused technology store designed to bring gaming gear, computer hardware, repair services, and tech insights together in one digital experience.
 
-By integrating design tokens, component libraries, and automated workflows, the setup significantly reduces the time spent translating design assets into code while maintaining design consistency across the product.
+The goal was to create a bold and modern e-commerce website that feels familiar to gamers while remaining easy to navigate for anyone looking for gaming products or technical services.
+
+The design combines a dark gaming aesthetic, vibrant accents, strong product imagery, and structured card-based layouts to create an engaging and visually focused shopping experience.
 
 ## 02 · Problem
 
-Design handovers between Figma and code are manual and repetitive: colors, typography, spacing, and layout details all have to be translated by hand. That work is slow, and it drifts — what ships in code slowly stops matching what was designed.
+Gaming e-commerce websites often contain a large number of products, categories, specifications, and technical details, which can quickly make the shopping experience feel overwhelming.
 
-The requirement was a repeatable workflow that keeps design and implementation aligned without developers rebuilding UI from scratch each time.
+GemiTech needed a digital experience that could organize gaming peripherals, hardware, repair services, and technology content without sacrificing the visual energy expected from a gaming brand.
+
+The challenge was to balance a strong gaming identity with clear navigation, product discoverability, and a simple purchasing experience.
 
 ## 03 · Concept
 
-The concept is an automated pipeline: Figma becomes the single source of truth, and code generation handles the repetitive translation.
+The concept was built around the idea of a **digital gaming tech hub** rather than a traditional online store.
 
-A **design system remains the single source of truth** for both designers and developers, making it easy to maintain consistency even as the product evolves.
+The interface uses a dark visual foundation with vibrant accent colors to create a gaming-oriented atmosphere, while clean typography, structured layouts, and consistent spacing keep the experience easy to understand.
+
+Products, repair services, and technology content are organized into distinct sections, allowing users to quickly move from discovering products to exploring services or learning more about gaming technology.
 
 ## 04 · Design Process
 
-The pipeline was built as a set of connected pieces:
+The website was designed around several key experience areas:
 
-- **Figma Plugin Integration** — a custom Figma plugin that extracts design tokens such as colors, typography, and spacing values, and exports them in a format compatible with the codebase.
-- **Code Generation** — an automated process that translates Figma components into React code using design tokens and pre-built component templates, letting developers focus on logic rather than repetitive UI coding.
-- **Continuous Sync** — a CI/CD pipeline that continuously synchronizes design changes from Figma to the codebase, so design updates are reflected instantly.
+* **Gaming-Focused Visual System** — A dark interface, bold typography, vibrant accents, and strong imagery establish a recognizable gaming aesthetic throughout the website.
+* **Product Discovery** — Gaming peripherals, hardware, and accessories are presented through structured product cards with clear pricing, categories, and essential information.
+* **Repair Services** — A dedicated repair section makes it easier for customers to discover available services and understand the support GemiTech provides.
+* **Card-Based Layouts** — Modular cards create a consistent visual system for products, services, featured collections, and technology content.
+* **Responsive Experience** — The layout is structured to adapt across different screen sizes while keeping important actions and product information accessible.
 
-One of the biggest challenges was ensuring the generated code stayed clean and maintainable. This meant setting up intelligent mapping between Figma components and React code structures, managing edge cases like responsive design and conditional rendering, and adding robust error handling so continuous synchronization never introduced conflicts.
+One of the main challenges was maintaining the visual intensity of a gaming brand without making the interface difficult to use. The solution was to use vibrant elements selectively and balance them with generous spacing, clear hierarchy, and simple navigation patterns.
 
 ## 05 · Final Design
 
-The finished workflow runs on:
+The final website brings together the core parts of the GemiTech experience:
 
-- **Figma API** — extracting design tokens and component data directly from the Figma designs.
-- **React and Next.js** — the front-end codebase with clean, reusable components.
-- **Styled-Components** — managing styles dynamically using design tokens.
-- **GitHub Actions** — automating the pipeline and syncing design changes to the repository.
+* **Gaming Store** — A product-focused shopping experience for peripherals, hardware, and gaming accessories.
+* **Repair Services** — A dedicated space for customers looking for gaming and technology repair solutions.
+* **Featured Products** — Prominent product sections designed to highlight popular and relevant gaming gear.
+* **Tech Insights** — Content areas for technology updates, gaming-related information, and helpful insights.
+* **Modern UI System** — Consistent cards, typography, spacing, imagery, and accent elements create a cohesive visual language across the website.
+
+The overall interface combines strong visual branding with a structured e-commerce experience, making the website feel energetic without compromising usability.
 
 ## 06 · Outcome
 
-The automated Figma-to-code pipeline streamlines the handoff process by removing the repetitive translation work between design and implementation.
+The GemiTech concept transforms a traditional technology store into a more engaging digital gaming destination.
 
-Designers gain more confidence that their designs will be accurately translated into code, and developers can focus on more complex logic and feature development. The project demonstrates how automation can bridge the gap between design and development.
+The combination of bold visuals, organized product discovery, repair services, and technology content creates a unified experience for gamers and tech enthusiasts.
+
+The project demonstrates how a strong visual identity and thoughtful UI/UX structure can work together to create an e-commerce experience that feels both **immersive and easy to navigate**.
