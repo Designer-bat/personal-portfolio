@@ -21,7 +21,6 @@ export type FontConfig = {
  */
 export type DisplayConfig = {
   location: boolean;
-  time: boolean;
   themeSwitcher: boolean;
 };
 

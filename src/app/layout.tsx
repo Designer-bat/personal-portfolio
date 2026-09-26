@@ -2,7 +2,6 @@ import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
 import { Analytics } from "@vercel/analytics/next";
-import { connection } from "next/server";
 
 import classNames from "classnames";
 
@@ -49,15 +48,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await connection();
-  const currentTime = new Intl.DateTimeFormat("en-NP", {
-    timeZone: person.location,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  }).format(new Date());
-
   return (
     <Flex
       suppressHydrationWarning
@@ -241,7 +231,7 @@ export default async function RootLayout({
 
 
           {/* Header */}
-          <Header currentTime={currentTime} />
+          <Header />
 
 
           {/* Main content */}

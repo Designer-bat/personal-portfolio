@@ -10,7 +10,7 @@ import { routes, display, person, about, work, gallery, contact } from "@/resour
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
 
-export const Header = ({ currentTime }: { currentTime: string }) => {
+export const Header = () => {
   const pathname = usePathname() ?? "";
   const [scrolled, setScrolled] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -146,19 +146,7 @@ export const Header = ({ currentTime }: { currentTime: string }) => {
             </Row>
           </Row>
         </Row>
-        <Flex fillWidth horizontal="end" vertical="center">
-          <Flex
-            paddingRight="12"
-            horizontal="end"
-            vertical="center"
-            textVariant="body-default-s"
-            gap="0"
-          >
-            <Flex s={{ hide: true }}>
-              {display.time && currentTime}
-            </Flex>
-          </Flex>
-        </Flex>
+        <Flex fillWidth />
       </Row>
     </>
   );
