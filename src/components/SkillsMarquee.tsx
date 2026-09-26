@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
-import type { SimpleIcon } from "simple-icons";
 import { RevealSection } from "@/components/Motion";
+import type { SimpleIcon } from "simple-icons";
 
 import {
   siAdobeaftereffects,
@@ -27,18 +27,6 @@ import {
 } from "simple-icons";
 
 
-/* =====================================================
-   SKILLS — TOOL MARQUEE
-   Reusable, data-driven section. Add / remove / reorder
-   tools by editing the arrays below — each row loops
-   endlessly, pauses on hover, and respects
-   prefers-reduced-motion. Colors follow the brand hex
-   shipped by Simple Icons, with two deliberate overrides:
-   - Premiere Pro uses its pink "logo" hex (#ea77ff)
-     instead of the shared purple so it reads distinctly.
-   - GitHub carries a "github" modifier so its black mark
-     flips to light on the dark band and back on light mode.
-===================================================== */
 
 type Skill = {
   name: string;
@@ -88,50 +76,40 @@ const devSkills: Skill[] = [
 ];
 
 const marqueeRows: MarqueeRow[] = [
-  { label: "Graphic Design", direction: "left", duration: "35s", skills: graphicDesignSkills },
-  { label: "UI/UX Design", direction: "right", duration: "20s", skills: uiuxSkills },
-  { label: "Development", direction: "left", duration: "35s", skills: devSkills },
+  { label: "Graphic Design", direction: "left", duration: "55s", skills: graphicDesignSkills },
+  { label: "UI/UX Design", direction: "right", duration: "55s", skills: uiuxSkills },
+  { label: "Development", direction: "left", duration: "55s", skills: devSkills },
 ];
 
 /** Number of duplicated groups; keeps the loop seamless at any viewport width. */
-const COPIES = 6;
-
+const COPIES = ["c1", "c2", "c3", "c4", "c5", "c6","c1", "c2", "c3", "c4", "c5", "c6"] as const;
 
 function BrandIcon({ icon }: { icon: SimpleIcon }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="1em"
-      height="1em"
-      role="img"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" width="1em" height="1em" role="img" aria-hidden="true">
       <path d={icon.path} fill="currentColor" />
     </svg>
   );
 }
 
-
 function MarqueeRow({ row }: { row: MarqueeRow }) {
   return (
     <div className="skills-marquee">
-      <div className="skills-marquee-label">{row.label}</div>
-
       <div
         className="skills-marquee-row"
         data-direction={row.direction}
         style={{ "--marquee-duration": row.duration } as CSSProperties}
       >
         <div className="skills-marquee-track">
-          {Array.from({ length: COPIES }, (_, copy) => (
+          {COPIES.map((copyId, copyIndex) => (
             <div
-              key={copy}
+              key={`${copyId}-${copyIndex}`}
               className={
-                copy === 0
+                copyIndex === 0
                   ? "skills-marquee-group"
                   : "skills-marquee-group skills-marquee-group--copy"
               }
-              aria-hidden={copy !== 0}
+              aria-hidden={copyIndex !== 0}
             >
               {row.skills.map((skill) => (
                 <span
@@ -144,7 +122,6 @@ function MarqueeRow({ row }: { row: MarqueeRow }) {
                   title={skill.name}
                   role="img"
                   aria-label={skill.name}
-                  tabIndex={0}
                   style={{ "--brand": skill.color } as CSSProperties}
                 >
                   <BrandIcon icon={skill.icon} />
@@ -154,26 +131,18 @@ function MarqueeRow({ row }: { row: MarqueeRow }) {
           ))}
         </div>
 
-        <span
-          className="skills-marquee-fade skills-marquee-fade--left"
-          aria-hidden="true"
-        />
-        <span
-          className="skills-marquee-fade skills-marquee-fade--right"
-          aria-hidden="true"
-        />
+        <span className="skills-marquee-fade skills-marquee-fade--left" aria-hidden="true" />
+        <span className="skills-marquee-fade skills-marquee-fade--right" aria-hidden="true" />
       </div>
     </div>
   );
 }
 
-
 export function SkillsMarquee() {
   return (
     <RevealSection id="skills" className="skills-marquee-section">
       <div className="skills-marquee-head">
-        {/* LEFT CONTENT */}
-        <div className="reference-section-label">Skills &amp; Tools</div>
+        <div className="reference-section-label">Tools &amp; Tech</div>
         <h2>Design, development, and everything in between.</h2>
       </div>
 

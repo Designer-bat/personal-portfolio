@@ -22,3 +22,6 @@ yarn.lock
 # macOS
 Icon?
 node_modules
+CLAUDE.md
+AGENTS.md
+.gitignore

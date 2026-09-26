@@ -12,3 +12,4 @@ export { Reveal, RevealSection, Stagger, StaggerItem } from "@/components/Motion
 export { AsciiScene } from "@/components/AsciiScene";
 export { CustomMDX } from "@/components/mdx";
 export { WorkGallery } from "@/components/work/WorkGallery";
+export { ProjectCarousel } from "@/components/ProjectCarousel";
