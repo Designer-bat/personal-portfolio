@@ -218,29 +218,8 @@ body {
 
   overflow: hidden;
 
-  border-radius: 28px;
 
-  background:
-    radial-gradient(
-      circle at 75% 30%,
-      rgba(59, 130, 246, 0.14),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 25% 80%,
-      rgba(99, 102, 241, 0.10),
-      transparent 30%
-    ),
-    rgba(15, 23, 42, 0.72);
-
-  border: 1px solid
-    rgba(148, 163, 184, 0.16);
-
-  backdrop-filter: blur(20px);
-
-  box-shadow:
-    0 30px 80px
-    rgba(2, 6, 23, 0.35);
+  
 }
 
 
@@ -282,13 +261,7 @@ body {
 
   font-weight: 600;
 
-  color:
-    rgba(
-      226,
-      232,
-      240,
-      0.65
-    );
+ 
 }
 
 
@@ -822,24 +795,6 @@ body {
 
   overflow: hidden;
 
-  background:
-    radial-gradient(
-      55% 90% at 50% -10%,
-      rgba(99, 102, 241, 0.14),
-      transparent 62%
-    ),
-    radial-gradient(
-      40% 70% at 100% 110%,
-      rgba(59, 130, 246, 0.10),
-      transparent 60%
-    ),
-    var(--skills-band);
-
-  border-top: 1px solid
-    var(--pf-line);
-
-  border-bottom: 1px solid
-    var(--pf-line);
 }
 
 
@@ -1048,45 +1003,6 @@ body {
   outline-offset: 4px;
 
   border-radius: 10px;
-}
-
-
-/* Edge fades — rows dissolve into the dark band */
-
-.skills-marquee-fade {
-  position: absolute;
-
-  top: 0;
-
-  bottom: 0;
-
-  width: 150px;
-
-  z-index: 2;
-
-  pointer-events: none;
-}
-
-
-.skills-marquee-fade--left {
-  left: 0;
-
-  background: linear-gradient(
-    to right,
-    var(--skills-band-fade),
-    transparent
-  );
-}
-
-
-.skills-marquee-fade--right {
-  right: 0;
-
-  background: linear-gradient(
-    to left,
-    var(--skills-band-fade),
-    transparent
-  );
 }
 
 
@@ -1575,12 +1491,7 @@ body {
     0
     0;
 
-  background:
-    var(--pf-panel, rgba(15, 23, 42, 0.7));
-
-  border:
-    1px solid
-    var(--pf-line, rgba(148, 163, 184, 0.12));
+ 
 }
 
 
