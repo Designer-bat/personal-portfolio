@@ -61,6 +61,7 @@ export function AsciiScene() {
             if (settled) return;
             settled = true;
             console.warn(
+              // biome-ignore lint/style/useTemplate: <explanation>
               "AsciiScene: container never received a non-zero size. " +
                 "Check that every ancestor of the element with the " +
                 `"${styles.scene}" class has an explicit height — ` +
@@ -139,6 +140,7 @@ export function AsciiScene() {
       );
       const step = Math.max(1, Math.ceil(instances.length / MAX_INSTANCES));
 
+      // biome-ignore lint/complexity/noForEach: <explanation>
       instances.filter((_, index) => index % step === 0).forEach((instance) => {
         let geometry = geometryCache.get(instance.char);
         if (!geometry) {
@@ -261,7 +263,9 @@ export function AsciiScene() {
         cancelAnimationFrame(frame);
         resizeObserver.disconnect();
         controls.dispose();
+        // biome-ignore lint/complexity/noForEach: <explanation>
         geometryCache.forEach((geometry) => geometry.dispose());
+        // biome-ignore lint/complexity/noForEach: <explanation>
         materialCache.forEach((material) => material.dispose());
         renderer.dispose();
         renderer.domElement.remove();
