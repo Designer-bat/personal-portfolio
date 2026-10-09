@@ -1,8 +1,8 @@
 "use client";
 
+import asciiData from "@/data/asciiSceneData.json";
 import { useEffect, useRef } from "react";
 import type { Font } from "three/examples/jsm/loaders/FontLoader.js";
-import asciiData from "@/data/asciiSceneData.json";
 import styles from "./AsciiScene.module.scss";
 
 const FONT_URL =
@@ -139,45 +139,82 @@ export function AsciiScene() {
         group.instances.map((instance) => ({ ...instance, char: group.char })),
       );
       const step = Math.max(1, Math.ceil(instances.length / MAX_INSTANCES));
+      // Separate depth layers preserve transparent sorting while batching glyphs.
+      const instancesByDepth = new Map<
+        number,
+        Map<string, (typeof instances)[number][]>
+      >();
 
-      // biome-ignore lint/complexity/noForEach: <explanation>
-      instances.filter((_, index) => index % step === 0).forEach((instance) => {
-        let geometry = geometryCache.get(instance.char);
-        if (!geometry) {
-          geometry = new TextGeometry(instance.char, {
-            font,
-            size: CHAR_SIZE,
-            depth: 0.02,
-            curveSegments: 4,
-          });
-          geometry.center();
-          geometry.scale(CHAR_WIDTH_SCALE, 1, 1);
-          geometryCache.set(instance.char, geometry);
+      for (let index = 0; index < instances.length; index += step) {
+        const instance = instances[index];
+        let instancesByCharacter = instancesByDepth.get(instance.z);
+        if (!instancesByCharacter) {
+          instancesByCharacter = new Map();
+          instancesByDepth.set(instance.z, instancesByCharacter);
         }
-
-        let material = materialCache.get(instance.color);
-        if (!material) {
-          material = new THREE.MeshBasicMaterial({
-            color: instance.color,
-            transparent: true,
-            opacity: 0.94,
-            // Was false: without depth writing, overlapping glyphs in dense
-            // areas (like the face) blend in draw order instead of properly
-            // occluding one another, reading as hazy/unclear. Sparse areas
-            // (hair strands) have little overlap so this mattered less there.
-            depthWrite: true,
-          });
-          materialCache.set(instance.color, material);
+        const characterInstances = instancesByCharacter.get(instance.char);
+        if (characterInstances) {
+          characterInstances.push(instance);
+        } else {
+          instancesByCharacter.set(instance.char, [instance]);
         }
+      }
 
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(
-          instance.x,
-          instance.y,
-          instance.z * DEPTH_MULTIPLIER,
-        );
-        artwork.add(mesh);
-      });
+      const transform = new THREE.Matrix4();
+      const color = new THREE.Color();
+      for (const instancesByCharacter of instancesByDepth.values()) {
+        for (const [character, characterInstances] of instancesByCharacter) {
+          let geometry = geometryCache.get(character);
+          if (!geometry) {
+            geometry = new TextGeometry(character, {
+              font,
+              size: CHAR_SIZE,
+              depth: 0.02,
+              curveSegments: 4,
+            });
+            geometry.center();
+            geometry.scale(CHAR_WIDTH_SCALE, 1, 1);
+            geometryCache.set(character, geometry);
+          }
+
+          let material = materialCache.get(character);
+          if (!material) {
+            material = new THREE.MeshBasicMaterial({
+              color: 0xffffff,
+              transparent: true,
+              opacity: 0.94,
+              depthWrite: true,
+            });
+            materialCache.set(character, material);
+          }
+
+          const mesh = new THREE.InstancedMesh(
+            geometry,
+            material,
+            characterInstances.length,
+          );
+          mesh.instanceMatrix.setUsage(THREE.StaticDrawUsage);
+
+          for (let index = 0; index < characterInstances.length; index++) {
+            const instance = characterInstances[index];
+            transform.makeTranslation(
+              instance.x,
+              instance.y,
+              instance.z * DEPTH_MULTIPLIER,
+            );
+            mesh.setMatrixAt(index, transform);
+            mesh.setColorAt(index, color.set(instance.color));
+          }
+
+          mesh.instanceMatrix.needsUpdate = true;
+          if (mesh.instanceColor) {
+            mesh.instanceColor.needsUpdate = true;
+          }
+          mesh.computeBoundingBox();
+          mesh.computeBoundingSphere();
+          artwork.add(mesh);
+        }
+      }
 
       // Fit the artwork to the camera's actual visible frustum, not to raw
       // container pixels. With a PerspectiveCamera, the world-space area

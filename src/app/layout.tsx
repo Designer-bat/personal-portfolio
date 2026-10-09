@@ -1,34 +1,31 @@
 import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
-import { Analytics } from "@vercel/analytics/next";
-
-import classNames from "classnames";
 
 import {
   Background,
   Column,
   Flex,
   Meta,
-  Opacity,
+  type Opacity,
   RevealFx,
-  SpacingToken,
+  type SpacingToken,
 } from "@once-ui-system/core";
 
 import {
   Footer,
   Header,
-  RouteGuard,
   Providers,
+  RouteGuard,
 } from "@/components";
 
 import {
   baseURL,
-  effects,
-  style,
   dataStyle,
+  effects,
   home,
   person,
+  style,
 } from "@/resources";
 
 
@@ -54,12 +51,7 @@ export default async function RootLayout({
       as="html"
       lang={person.locale ?? "en"}
       fillWidth
-      className={classNames(
-        "font-heading",
-        "font-body",
-        "font-label",
-        "font-code",
-      )}
+      className="font-heading font-body font-label font-code"
     >
       <head>
         <script

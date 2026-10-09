@@ -87,43 +87,63 @@ export default function GalleryView() {
     const textureLoader = new THREE.TextureLoader();
     const wobble = { value: 0 };
     const materials: THREE.ShaderMaterial[] = [];
+    const textures = new Map<string, THREE.Texture>();
+    const imageAspects = new Map<string, number>();
+    const materialsByImage = new Map<string, THREE.ShaderMaterial[]>();
     let disposed = false;
 
     const images = gallery.images.concat(gallery.images);
     const cards = images.map((image) => {
-      const texture = textureLoader.load(
-        image.src,
-        (loadedTexture) => {
-          if (disposed) {
-            loadedTexture.dispose();
-            return;
-          }
-          loadedTexture.colorSpace = THREE.SRGBColorSpace;
-          const dimensions = loadedTexture.image as {
-            width: number;
-            height: number;
-          };
-          material.uniforms.uImageAspect.value = dimensions.width / dimensions.height;
-        },
-        undefined,
-        (error) => {
-          console.error(`Failed to load gallery image "${image.src}":`, error);
-          if (!disposed) {
-            setRenderError("Some gallery images could not be loaded.");
-          }
-        },
-      );
+      let texture = textures.get(image.src);
+      if (!texture) {
+        texture = textureLoader.load(
+          image.src,
+          (loadedTexture) => {
+            if (disposed) {
+              loadedTexture.dispose();
+              return;
+            }
+            loadedTexture.colorSpace = THREE.SRGBColorSpace;
+            const dimensions = loadedTexture.image as {
+              width: number;
+              height: number;
+            };
+            const aspect = dimensions.width / dimensions.height;
+            imageAspects.set(image.src, aspect);
+            for (const material of materialsByImage.get(image.src) ?? []) {
+              material.uniforms.uImageAspect.value = aspect;
+            }
+          },
+          undefined,
+          (error) => {
+            console.error(`Failed to load gallery image "${image.src}":`, error);
+            if (!disposed) {
+              setRenderError("Some gallery images could not be loaded.");
+            }
+          },
+        );
+        textures.set(image.src, texture);
+      }
+
       const material = new THREE.ShaderMaterial({
         vertexShader,
         fragmentShader,
         side: THREE.DoubleSide,
         uniforms: {
           uTexture: { value: texture },
-          uImageAspect: { value: settings.cardWidth / settings.cardHeight },
+          uImageAspect: {
+            value: imageAspects.get(image.src) ?? settings.cardWidth / settings.cardHeight,
+          },
           uWobble: wobble,
         },
       });
       materials.push(material);
+      const imageMaterials = materialsByImage.get(image.src);
+      if (imageMaterials) {
+        imageMaterials.push(material);
+      } else {
+        materialsByImage.set(image.src, [material]);
+      }
       const card = new THREE.Mesh(geometry, material);
       scene.add(card);
       return card;
@@ -195,8 +215,10 @@ export default function GalleryView() {
       canvas.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", resize);
       for (const material of materials) {
-        material.uniforms.uTexture.value.dispose();
         material.dispose();
+      }
+      for (const texture of textures.values()) {
+        texture.dispose();
       }
       geometry.dispose();
       renderer.dispose();
