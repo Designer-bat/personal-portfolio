@@ -14,6 +14,7 @@ import {
 
 import {
   Footer,
+  FluidCursor,
   Header,
   Providers,
   RouteGuard,
@@ -257,6 +258,8 @@ export default async function RootLayout({
 
           {/* Footer */}
           <Footer />
+
+          <FluidCursor />
 
         </Column>
       </Providers>
