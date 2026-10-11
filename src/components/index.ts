@@ -6,6 +6,7 @@ export { SkillsMarquee } from "@/components/SkillsMarquee";
 export { HeadingLink } from "@/components/HeadingLink";
 export { RouteGuard } from "@/components/RouteGuard";
 export { Providers } from "@/components/Providers";
+export { FluidCursor } from "@/components/FluidCursor";
 export { ScrollToHash } from "@/components/ScrollToHash";
 export { ThemeToggle } from "@/components/ThemeToggle";
 export { Reveal, RevealSection, Stagger, StaggerItem } from "@/components/Motion";

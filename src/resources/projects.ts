@@ -1,11 +1,6 @@
-/* =====================================================
-   SHARED PROJECTS
-   Single source of truth for non-case-study projects
-   (personal / development work from GitHub) and the
-   category list used by the Work filters.
-===================================================== */
 
 export type DevProject = {
+  image?: string;
   title: string;
   category: string;
   description: string;
@@ -19,6 +14,7 @@ export const PROJECT_CATEGORIES = ["Brand Identity", "UI/UX Design", "Developmen
 /** Personal / development projects linked from GitHub. */
 export const devProjects: DevProject[] = [
   {
+    image: "/gallery/vertical.png",
     title: "Ecommerce Website",
     category: "Development",
     description:
@@ -27,6 +23,7 @@ export const devProjects: DevProject[] = [
     github: "https://github.com/Designer-bat/ecommerce-website",
   },
   {
+    image: "/gallery/vertical.png",
     title: "Parking Management System",
     category: "Development",
     description:
@@ -35,6 +32,7 @@ export const devProjects: DevProject[] = [
     github: "https://github.com/Designer-bat/ProjectHamroEasyParking",
   },
   {
+    image: "/gallery/vertical.png",
     title: "Artsphere",
     category: "Development",
     description:
