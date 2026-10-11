@@ -15,6 +15,7 @@ type Metadata = {
   publishedAt: string;
   summary: string;
   image?: string;
+  imageAlt?: string;
   images: string[];
   /** Project discipline, e.g. "Brand Identity" — shown as the card category */
   category?: string;
@@ -52,6 +53,7 @@ function readMDXFile(filePath: string) {
     publishedAt: data.publishedAt,
     summary: data.summary || "",
     image: data.image || "",
+    imageAlt: data.imageAlt || "",
     images: data.images || [],
     category: data.category || "",
     tags: data.tags || [],

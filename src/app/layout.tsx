@@ -6,7 +6,6 @@ import {
   Background,
   Column,
   Flex,
-  Meta,
   type Opacity,
   RevealFx,
   type SpacingToken,
@@ -28,10 +27,11 @@ import {
   person,
   style,
 } from "@/resources";
+import { generatePageMetadata } from "@/utils/seo";
 
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generatePageMetadata({
     title: home.title,
     description: home.description,
     baseURL: baseURL,

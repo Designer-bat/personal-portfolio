@@ -1,4 +1,4 @@
-import { Column, Meta, Schema } from "@once-ui-system/core";
+import { Column, Schema } from "@once-ui-system/core";
 
 import {
   AsciiScene,
@@ -11,14 +11,13 @@ import {
 } from "@/components";
 import { baseURL, home, person, social } from "@/resources";
 import { getPosts } from "@/utils/utils";
+import { generatePageMetadata } from "@/utils/seo";
 
 import {
   HiCodeBracket,
-  HiDevicePhoneMobile,
   HiGlobeAlt,
-  HiPaintBrush,
   HiSparkles,
-  HiSquares2X2,
+  HiWindow,
 } from "react-icons/hi2";
 
 /* =====================================================
@@ -35,34 +34,28 @@ const featuredPosts = getPosts(["src", "app", "work", "projects"]).sort((a, b) =
 
 const servicesList = [
   {
-    title: "Development",
+    title: "Frontend Development",
     icon: HiCodeBracket,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
+    href: "/services/frontend-development",
+    description: "Responsive frontend builds that bring considered designs to life.",
   },
   {
-    title: "Website Design",
+    title: "Web Design",
     icon: HiGlobeAlt,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
-  },
-  {
-    title: "Mobile App Design",
-    icon: HiDevicePhoneMobile,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
+    href: "/services/web-design",
+    description: "Clear, responsive websites designed around your business and audience.",
   },
   {
     title: "Brand Identity",
     icon: HiSparkles,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
-  },
-  {
-    title: "Graphic Design",
-    icon: HiPaintBrush,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
+    href: "/services/brand-identity",
+    description: "Distinctive visual identity systems shaped around your brand.",
   },
   {
     title: "UI/UX Design",
-    icon: HiSquares2X2,
-    description: "Thoughtful, practical, and conversion-focused execution for modern platforms.",
+    icon: HiWindow,
+    href: "/services/ui-ux-design",
+    description: "Useful, intuitive digital experiences for products and services.",
   },
 ];
 
@@ -71,7 +64,7 @@ const servicesList = [
 ===================================================== */
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generatePageMetadata({
     title: home.title,
     description: home.description,
     baseURL: baseURL,
@@ -113,13 +106,18 @@ export default function Home() {
               Available for freelance
             </Reveal>
 
-            <Reveal delay={0.08}>
+                        <Reveal delay={0.08}>
               <h1 className="reference-title">
-                Hi, I'm Ramesh Tiwari
+                Hi, I’m Ramesh
                 <br />
                 <span className="reference-accent">Designer &amp; Developer</span>
               </h1>
             </Reveal>
+
+            <p className="reference-description">
+              Based in Kathmandu, Nepal. I design and build useful digital experiences for clients
+              in Nepal and internationally.
+            </p>
 
             <br />
             <br />
@@ -162,22 +160,7 @@ export default function Home() {
         />
       </RevealSection>
 
-      {/* =================================================
-          ABOUT
-      ================================================= */}
-
-      <RevealSection id="about" className="reference-section">
-        <div className="reference-section-label">About</div>
-        <h2>I build work that feels considered, elegant, and clear.</h2>
-        <p>
-          I'm Ramesh, a multidisciplinary designer working across graphic design, brand identity,
-          UI/UX, and frontend development. I enjoy turning ideas into clear visual identities and
-          practical digital experiences.
-        </p>
-
-        <hr className="reference-divider" />
-      </RevealSection>
-
+    
       {/* =================================================
           TOOLS & TECH
       ================================================= */}
@@ -198,7 +181,9 @@ export default function Home() {
               <div className="reference-service-icon" aria-hidden="true">
                 <service.icon />
               </div>
-              <h3>{service.title}</h3>
+              <h3>
+                <a href={service.href}>{service.title}</a>
+              </h3>
               <p>{service.description}</p>
             </StaggerItem>
           ))}

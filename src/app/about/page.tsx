@@ -3,7 +3,6 @@ import {
   Button,
   Column,
   Heading,
-  Meta,
   Row,
   Schema,
   Tag,
@@ -11,9 +10,10 @@ import {
 } from "@once-ui-system/core";
 import { about, baseURL, person, social } from "@/resources";
 import React from "react";
+import { generatePageMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generatePageMetadata({
     title: about.title,
     description: about.description,
     baseURL: baseURL,

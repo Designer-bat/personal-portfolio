@@ -15,6 +15,7 @@ export interface ProjectCarouselPost {
     category?: string;
     summary?: string;
     image?: string;
+    imageAlt?: string;
     images?: string[];
   };
 }
@@ -124,7 +125,7 @@ export function ProjectCarousel({
                 {cover && (
                   <Image
                     src={cover}
-                    alt={post.metadata.title}
+                    alt={post.metadata.imageAlt || post.metadata.title}
                     fill
                     sizes="(max-width: 640px) 90vw, (max-width: 900px) 360px, 420px"
                     priority={index < 2}

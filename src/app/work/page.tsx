@@ -1,14 +1,15 @@
-import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
+import { Column, Heading, Schema } from "@once-ui-system/core";
 import { baseURL, about, person, work, devProjects } from "@/resources";
 import { getPosts } from "@/utils/utils";
 import { WorkGallery, type WorkItem } from "@/components/work/WorkGallery";
+import { generatePageMetadata } from "@/utils/seo";
 
 /* =====================================================
    META
 ===================================================== */
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generatePageMetadata({
     title: work.title,
     description: work.description,
     baseURL: baseURL,
@@ -33,6 +34,7 @@ export default async function Work() {
     tags: post.metadata.tags || [],
     href: `/work/${post.slug}`,
     image: post.metadata.images[0] || post.metadata.image,
+    imageAlt: post.metadata.imageAlt,
     publishedAt: post.metadata.publishedAt,
   }));
 

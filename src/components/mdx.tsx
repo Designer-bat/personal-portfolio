@@ -1,5 +1,6 @@
-import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
-import React, { ReactNode } from "react";
+import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
+import type React from "react";
+import type { ReactNode } from "react";
 import { slugify as transliterate } from "transliteration";
 
 import {
@@ -8,8 +9,8 @@ import {
   Text,
   InlineCode,
   CodeBlock,
-  TextProps,
-  MediaProps,
+  type TextProps,
+  type MediaProps,
   Accordion,
   AccordionGroup,
   Table,
@@ -121,9 +122,10 @@ function createInlineCode({ children }: { children: ReactNode }) {
   return <InlineCode>{children}</InlineCode>;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function createCodeBlock(props: any) {
   // For pre tags that contain code blocks
-  if (props.children && props.children.props && props.children.props.className) {
+  if (props.children?.props?.className) {
     const { className, children } = props.children.props;
 
     // Extract language from className (format: language-xxx)
@@ -171,6 +173,7 @@ function createHR() {
 }
 
 const components = {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   p: createParagraph as any,
   h1: createHeading("h1") as any,
   h2: createHeading("h2") as any,

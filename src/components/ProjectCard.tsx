@@ -9,6 +9,8 @@ interface ProjectCardProps {
   href: string;
   /** Cover image path. Falls back to `images[0]` when omitted */
   image?: string;
+  /** Describes the cover image for screen readers */
+  imageAlt?: string;
   /** Full set of project images; used as a fallback for the cover */
   images?: string[];
   /** Project title */
@@ -39,6 +41,7 @@ interface ProjectCardProps {
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
   image,
+  imageAlt,
   images = [],
   title,
   publishedAt,
@@ -53,7 +56,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {cover && (
           <Image
             src={cover}
-            alt={title}
+            alt={imageAlt || title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={priority}

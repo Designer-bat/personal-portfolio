@@ -18,6 +18,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/work/automate-design-handovers-with-a-figma-to-code-pipeline",
+        destination: "/work/gemitech-ecommerce-design",
+        permanent: true,
+      },
+      {
+        source: "/work/helloride",
+        destination: "/work/yatrafirst-bus-booking-app",
+        permanent: true,
+      },
+      {
+        source: "/work/novagrow-brand-identity",
+        destination: "/work/solas-health-website-design",
+        permanent: true,
+      },
+    ];
+  },
   sassOptions: {
     compiler: "modern",
     silenceDeprecations: ["legacy-js-api"],

@@ -5,10 +5,11 @@ const person: Person = {
   firstName: "Ramesh",
   lastName: "Tiwari",
   name: "Ramesh Tiwari",
-  role: "Visual Designer & Developer",
+  role: "Freelance UI/UX Designer & Frontend Developer",
   avatar: "/images/avatar.jpg",
   email: "eswobtik.tiwari@gmail.com",
   location: "Asia/Kathmandu",
+  locationLabel: "Kathmandu, Nepal",
   languages: ["English", "Nepali"],
   locale: "en",
 };
@@ -56,8 +57,8 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name} • Portfolio`,
-  description: `Portfolio website showcasing the work of ${person.name}, a UI/UX designer, graphic designer, and frontend developer based in Kathmandu.`,
+  title: `${person.name} | UI/UX & Frontend Developer in Kathmandu, Nepal`,
+  description: `Freelance UI/UX design, web design, frontend development, and brand identity from Kathmandu, Nepal. Available for remote projects in Nepal and internationally.`,
   headline: <>Designing premium digital experiences from idea to launch.</>,
   featured: {
     display: true,
@@ -84,7 +85,7 @@ const about: About = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, a multidisciplinary designer and frontend developer building thoughtful digital products in Kathmandu.`,
+  description: `Meet ${person.name}, a Kathmandu-based freelance UI/UX designer and frontend developer working across web design and brand identity for clients in Nepal and internationally.`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -170,54 +171,54 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and development work by ${person.name}`,
+  description: `Explore UI/UX design, web design, and frontend development case studies by ${person.name}, a freelance designer based in Kathmandu, Nepal.`,
 };
 
 const gallery: Gallery = {
   path: "/gallery",
   label: "Gallery",
   title: `Design gallery – ${person.name}`,
-  description: `A collection of branding and visual work by ${person.name}`,
+  description: `Explore selected visual and brand identity work by ${person.name}, a freelance designer based in Kathmandu, Nepal.`,
   // These are placeholder images, replace with your own
   images: [
     {
       src: "/images/gallery/horizontal-1.jpg",
-      alt: "Design work sample",
+      alt: "YatraFirst mobile bus booking screens for route search, trips, and offers",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-4.jpg",
-      alt: "Design work sample",
+      alt: "Snow-covered mountain peak under a clear sky",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/horizontal-3.jpg",
-      alt: "Design work sample",
+      alt: "KrishiMitra mobile app interface for Nepali farmers",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-1.jpg",
-      alt: "Design work sample",
+      alt: "Cinematic Studio mobile app screens for recording and exporting video",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/vertical-2.jpg",
-      alt: "Design work sample",
+      alt: "Mountain peaks lit by warm sunset light",
       orientation: "vertical",
     },
     {
       src: "/images/gallery/horizontal-2.jpg",
-      alt: "Design work sample",
+      alt: "KrishiMitra app screens for crop advice, weather, and farmer support",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/horizontal-4.jpg",
-      alt: "Design work sample",
+      alt: "KrishiMitra agriculture app screens for crop advice and market information",
       orientation: "horizontal",
     },
     {
       src: "/images/gallery/vertical-3.jpg",
-      alt: "Design work sample",
+      alt: "Snowy forest and mountain landscape at dusk",
       orientation: "vertical",
     },
   ],

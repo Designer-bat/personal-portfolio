@@ -21,6 +21,10 @@ const routes: RoutesConfig = {
   "/about": true,
   "/work": true,
   "/gallery": true,
+  "/services/ui-ux-design": true,
+  "/services/web-design": true,
+  "/services/brand-identity": true,
+  "/services/frontend-development": true,
 };
 
 const display: DisplayConfig = {

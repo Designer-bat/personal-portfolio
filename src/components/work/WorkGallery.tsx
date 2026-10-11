@@ -20,6 +20,7 @@ export type WorkItem = {
   href?: string;
   /** Case-study cover image */
   image?: string;
+  imageAlt?: string;
   publishedAt?: string;
   /** GitHub repository URL for development items */
   github?: string;
@@ -69,6 +70,7 @@ export const WorkGallery = ({
               priority={index < priorityCount}
               href={item.href ?? "#"}
               image={item.image}
+              imageAlt={item.imageAlt}
               title={item.title}
               description={item.description}
               category={item.category}
