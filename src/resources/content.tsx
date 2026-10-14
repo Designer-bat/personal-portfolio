@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Tiwari",
   name: "Ramesh Tiwari",
   role: "Freelance UI/UX Designer & Frontend Developer",
-  avatar: "/images/avatar.jpg",
+  avatar: "/images/avatar-01.jpg",
   email: "eswobtik.tiwari@gmail.com",
   location: "Asia/Kathmandu",
   locationLabel: "Kathmandu, Nepal",

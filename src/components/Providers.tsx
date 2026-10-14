@@ -17,6 +17,7 @@ import {
   ToastProvider,
   TransitionStyle,
 } from "@once-ui-system/core";
+import { MotionConfig } from "motion/react";
 import { style, dataStyle } from "../resources";
 import { iconLibrary } from "../resources/icons";
 
@@ -48,7 +49,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
           }}
         >
           <ToastProvider>
-            <IconProvider icons={iconLibrary}>{children}</IconProvider>
+            <MotionConfig reducedMotion="user">
+              <IconProvider icons={iconLibrary}>{children}</IconProvider>
+            </MotionConfig>
           </ToastProvider>
         </DataThemeProvider>
       </ThemeProvider>

@@ -12,7 +12,7 @@ export function Reveal({ children, delay = 0, ...props }: RevealProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2, margin: "0px 0px -8% 0px" }}
       transition={{
@@ -40,7 +40,7 @@ export function RevealSection({
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 28 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12, margin: "0px 0px -6% 0px" }}
       transition={{
@@ -97,7 +97,7 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 18 },
+        hidden: { opacity: 0, y: 18 },
         visible: { opacity: 1, y: 0 },
       }}
       transition={{

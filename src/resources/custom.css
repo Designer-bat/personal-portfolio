@@ -1046,11 +1046,11 @@ html.has-fluid-cursor-selection .fluid-cursor {
 
 @keyframes hero-float {
   from {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotate(-28deg);
   }
 
   to {
-    transform: translate3d(0, -6px, 0);
+    transform: translate3d(0, -6px, 0) rotate(-28deg);
   }
 }
 
@@ -2992,6 +2992,10 @@ html[data-theme="light"]
   }
 
   .reference-person {
+    animation: none;
+  }
+
+  .decoration-4 {
     animation: none;
   }
 

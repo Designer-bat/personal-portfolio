@@ -1,7 +1,6 @@
 import { Column, Schema } from "@once-ui-system/core";
 
 import {
-  AsciiScene,
   ProjectCarousel,
   Reveal,
   RevealSection,
@@ -143,7 +142,11 @@ export default function Home() {
 
             <div className="reference-image-glow" />
 
-            <AsciiScene />
+            <img
+              src="/images/avatar-01.jpg"
+              alt="Portrait of Ramesh Tiwari"
+              className="reference-person"
+            />
           </Reveal>
         </div>
       </section>
