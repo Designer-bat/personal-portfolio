@@ -1944,7 +1944,7 @@ html.has-fluid-cursor-selection .fluid-cursor {
 
 
   .reference-hero-image {
-    min-height: 480px;
+    display: none;
   }
 
 
