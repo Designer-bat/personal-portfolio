@@ -1,12 +1,15 @@
 import { Column, Schema } from "@once-ui-system/core";
 
 import {
+  HeroBadge,
   ProjectCarousel,
   Reveal,
   RevealSection,
+  RevealText,
   SkillsMarquee,
   Stagger,
   StaggerItem,
+  TextMarquee,
 } from "@/components";
 import { baseURL, home, person, social } from "@/resources";
 import { getPosts } from "@/utils/utils";
@@ -51,10 +54,22 @@ const servicesList = [
     description: "Distinctive visual identity systems shaped around your brand.",
   },
   {
+    title: "Graphic Design",
+    icon: HiSparkles,
+    href: "/services/graphic-design",
+    description: "Visually compelling graphics that communicate your message effectively.",
+  },
+  {
     title: "UI/UX Design",
     icon: HiWindow,
     href: "/services/ui-ux-design",
     description: "Useful, intuitive digital experiences for products and services.",
+  },
+  {
+    title: "UI/UX Research",
+    icon: HiWindow,
+    href: "/services/ui-ux-research",
+    description: "Research-driven insights for creating intuitive digital experiences.",
   },
 ];
 
@@ -105,18 +120,16 @@ export default function Home() {
               Available for freelance
             </Reveal>
 
-                        <Reveal delay={0.08}>
-              <h1 className="reference-title">
-                Hi, I’m Ramesh
-                <br />
-                <span className="reference-accent">Designer &amp; Developer</span>
-              </h1>
-            </Reveal>
+            <RevealText as="h1" className="reference-title" delay={0.08}>
+              Hi, I’m Ramesh
+              <br />
+              <span className="reference-accent">Designer &amp; Developer</span>
+            </RevealText>
 
-            <p className="reference-description">
+            <RevealText as="p" className="reference-description" delay={0.12}>
               Based in Kathmandu, Nepal. I design and build useful digital experiences for clients
               in Nepal and internationally.
-            </p>
+            </RevealText>
 
             <br />
             <br />
@@ -133,23 +146,12 @@ export default function Home() {
 
           {/* RIGHT IMAGE */}
           <Reveal className="reference-hero-image" delay={0.18}>
-            <div className="reference-decoration decoration-1" />
-            <div className="reference-decoration decoration-2" />
-            <div className="reference-decoration decoration-3" />
-            <div className="reference-decoration decoration-4" />
-            <div className="reference-decoration decoration-5" />
-            <div className="reference-decoration decoration-6" />
-
-            <div className="reference-image-glow" />
-
-            <img
-              src="/images/avatar-01.jpg"
-              alt="Portrait of Ramesh Tiwari"
-              className="reference-person"
-            />
+            <HeroBadge />
           </Reveal>
         </div>
       </section>
+
+      <TextMarquee />
 
       {/* =================================================
           SELECTED WORK (CAROUSEL)
@@ -176,7 +178,7 @@ export default function Home() {
 
       <RevealSection id="services" className="reference-section">
         <div className="reference-section-label">Services</div>
-        <h2>What I can help you build.</h2>
+        <RevealText as="h2">What I can help you build.</RevealText>
 
         <Stagger className="reference-service-grid">
           {servicesList.map((service) => (
@@ -200,16 +202,16 @@ export default function Home() {
       <RevealSection id="contact" className="reference-contact">
         <div className="reference-section-label">Contact</div>
 
-        <h2>
+        <RevealText as="h2">
           Have a project in mind?
           <br />
           Let's create something meaningful.
-        </h2>
+        </RevealText>
 
-        <p>
+        <RevealText as="p">
           Open to freelance collaborations, product design conversations, and frontend-led design
           partnerships.
-        </p>
+        </RevealText>
 
         <div className="reference-contact-cta">
           <a href={`mailto:${person.email}`} className="reference-button">

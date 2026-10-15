@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { HiArrowUpRight, HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
+import { RevealText } from "@/components/Motion";
 import styles from "./ProjectCarousel.module.scss";
 
 export interface ProjectCarouselPost {
@@ -81,7 +82,9 @@ export function ProjectCarousel({
       <div className={styles.header}>
         <div className={styles.headerText}>
           <div className={styles.eyebrow}>{eyebrow}</div>
-          <h2 className={styles.title}>{title}</h2>
+          <RevealText as="h2" className={styles.title}>
+            {title}
+          </RevealText>
         </div>
 
         <div className={styles.controls} aria-label="Project carousel controls">
@@ -141,10 +144,14 @@ export function ProjectCarousel({
                   {year && <span>• {year}</span>}
                 </div>
 
-                <h3 className={styles.cardTitle}>{post.metadata.title}</h3>
+                <RevealText as="h3" className={styles.cardTitle}>
+                  {post.metadata.title}
+                </RevealText>
 
                 {post.metadata.summary && (
-                  <p className={styles.cardSummary}>{post.metadata.summary}</p>
+                  <RevealText as="p" className={styles.cardSummary}>
+                    {post.metadata.summary}
+                  </RevealText>
                 )}
 
                 <div className={styles.exploreLink}>

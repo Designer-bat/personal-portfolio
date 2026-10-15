@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import { RevealSection } from "@/components/Motion";
+import { RevealSection, RevealText } from "@/components/Motion";
 import type { SimpleIcon } from "simple-icons";
 
 import {
@@ -143,7 +143,7 @@ export function SkillsMarquee() {
     <RevealSection id="skills" className="skills-marquee-section">
       <div className="skills-marquee-head">
         <div className="reference-section-label">Tools &amp; Tech</div>
-        <h2>Design, development, and everything in between.</h2>
+        <RevealText as="h2">Design, development, and everything in between.</RevealText>
       </div>
 
       <div className="skills-marquee-stack">

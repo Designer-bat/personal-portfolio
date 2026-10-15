@@ -112,7 +112,7 @@
 
   &:hover {
     transform: translateY(-6px);
-    border-color: rgba(129, 140, 248, 0.45);
+    border-color: var(--pf-accent-soft, #818cf8);
     background: var(--pf-panel-hover, rgba(30, 41, 59, 0.7));
     box-shadow: 0 20px 40px rgba(2, 6, 23, 0.35);
 
@@ -126,7 +126,7 @@
 
     .exploreLink {
       gap: 8px;
-      color: #ffffff;
+      color: var(--pf-accent-strong, #4f46e5);
     }
   }
 }
@@ -254,5 +254,19 @@
 
   .imageWrap {
     height: 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel {
+    scroll-behavior: auto;
+  }
+
+  .card,
+  .thumb,
+  .controlButton,
+  .exploreLink,
+  .progressThumb {
+    transition: none;
   }
 }
