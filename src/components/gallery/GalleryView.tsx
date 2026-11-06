@@ -2,248 +2,226 @@
 
 import { gallery } from "@/resources";
 import { gsap } from "gsap";
-import { Observer } from "gsap/Observer";
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./GalleryView.module.scss";
 
-gsap.registerPlugin(Observer);
+const tabs = ["All", "App designs", "Brand identity"] as const;
+type GalleryTab = (typeof tabs)[number];
+type GalleryImage = (typeof gallery.images)[number];
 
-const settings = {
-  radius: 1.8,
-  verticalGap: 0.9,
-  angleGap: 0.85,
-  cardWidth: 1.35,
-  cardHeight: 1.8,
-  idleSpin: 0.005,
-  scrollSensitivity: 0.004,
-  smoothing: 0.1,
-  wobbleStrength: 0.3,
-};
+function getColumnCount(width: number) {
+  if (width < 520) return 2;
+  if (width < 860) return 3;
+  if (width < 1200) return 4;
+  return 5;
+}
 
-const vertexShader = `
-  uniform float uWobble;
-  varying vec2 vUv;
+function getEstimatedAspectRatio(image: GalleryImage) {
+  return image.orientation === "horizontal" ? 1.3 : 0.72;
+}
 
-  void main() {
-    vUv = uv;
-    vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
-    viewPosition.x += sin(uv.y * 3.14159) * uWobble;
-    gl_Position = projectionMatrix * viewPosition;
-  }
-`;
+function isPhotography(image: GalleryImage) {
+  return /mountain|forest|snow|landscape|sunset/i.test(image.alt);
+}
 
-const fragmentShader = `
-  uniform sampler2D uTexture;
-  uniform float uImageAspect;
-  varying vec2 vUv;
-
-  void main() {
-    vec2 uv = vUv;
-    float cardAspect = 1.35 / 1.8;
-
-    if (uImageAspect > cardAspect) {
-      uv.x = (uv.x - 0.5) * (cardAspect / uImageAspect) + 0.5;
-    } else {
-      uv.y = (uv.y - 0.5) * (uImageAspect / cardAspect) + 0.5;
-    }
-
-    vec4 color = texture2D(uTexture, uv);
-    if (!gl_FrontFacing) color.rgb = mix(color.rgb, vec3(1.0), 0.75);
-    gl_FragColor = color;
-  }
-`;
+function getCategory(image: GalleryImage): Exclude<GalleryTab, "All"> {
+  return isPhotography(image) ? "Brand identity" : "App designs";
+}
 
 export default function GalleryView() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [renderError, setRenderError] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const underlineRef = useRef<HTMLSpanElement>(null);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [activeTab, setActiveTab] = useState<GalleryTab>("All");
+  const [columnsCount, setColumnsCount] = useState(4);
+  const [imageAspectRatios, setImageAspectRatios] = useState<Record<string, number>>({});
+  const [actionError, setActionError] = useState<string | null>(null);
+  const activeTabIndex = tabs.indexOf(activeTab);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({
-        canvas,
-        antialias: true,
-        alpha: true,
-      });
-    } catch (error) {
-      console.error("Failed to initialize the gallery renderer:", error);
-      setRenderError("The interactive gallery could not start in this browser.");
-      return;
-    }
-
-    setRenderError(null);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-    camera.position.z = 8;
-
-    const cardCount = gallery.images.length * 2;
-    const geometry = new THREE.PlaneGeometry(settings.cardWidth, settings.cardHeight, 1, 16);
-    const textureLoader = new THREE.TextureLoader();
-    const wobble = { value: 0 };
-    const materials: THREE.ShaderMaterial[] = [];
-    const textures = new Map<string, THREE.Texture>();
-    const imageAspects = new Map<string, number>();
-    const materialsByImage = new Map<string, THREE.ShaderMaterial[]>();
-    let disposed = false;
-
-    const images = gallery.images.concat(gallery.images);
-    const cards = images.map((image) => {
-      let texture = textures.get(image.src);
-      if (!texture) {
-        texture = textureLoader.load(
-          image.src,
-          (loadedTexture) => {
-            if (disposed) {
-              loadedTexture.dispose();
-              return;
-            }
-            loadedTexture.colorSpace = THREE.SRGBColorSpace;
-            const dimensions = loadedTexture.image as {
-              width: number;
-              height: number;
-            };
-            const aspect = dimensions.width / dimensions.height;
-            imageAspects.set(image.src, aspect);
-            for (const material of materialsByImage.get(image.src) ?? []) {
-              material.uniforms.uImageAspect.value = aspect;
-            }
-          },
-          undefined,
-          (error) => {
-            console.error(`Failed to load gallery image "${image.src}":`, error);
-            if (!disposed) {
-              setRenderError("Some gallery images could not be loaded.");
-            }
-          },
-        );
-        textures.set(image.src, texture);
-      }
-
-      const material = new THREE.ShaderMaterial({
-        vertexShader,
-        fragmentShader,
-        side: THREE.DoubleSide,
-        uniforms: {
-          uTexture: { value: texture },
-          uImageAspect: {
-            value: imageAspects.get(image.src) ?? settings.cardWidth / settings.cardHeight,
-          },
-          uWobble: wobble,
-        },
-      });
-      materials.push(material);
-      const imageMaterials = materialsByImage.get(image.src);
-      if (imageMaterials) {
-        imageMaterials.push(material);
-      } else {
-        materialsByImage.set(image.src, [material]);
-      }
-      const card = new THREE.Mesh(geometry, material);
-      scene.add(card);
-      return card;
-    });
-
-    const state = { rotation: 0, rotationTarget: 0 };
-    const observer = Observer.create({
-      target: canvas,
-      type: "wheel,touch",
-      preventDefault: true,
-      onChange: (self) => {
-        state.rotationTarget += self.deltaY * settings.scrollSensitivity;
-      },
-    });
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-        event.preventDefault();
-        state.rotationTarget += 1;
-      } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-        event.preventDefault();
-        state.rotationTarget -= 1;
-      }
-    };
-    canvas.addEventListener("keydown", handleKeyDown);
-
-    const resize = () => {
-      const { width, height } = canvas.getBoundingClientRect();
-      if (width === 0 || height === 0) return;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height, false);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const idleSpin = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? 0
-      : settings.idleSpin;
-
-    const render = () => {
-      state.rotationTarget += idleSpin;
-      state.rotation += (state.rotationTarget - state.rotation) * settings.smoothing;
-
-      const lag = THREE.MathUtils.clamp(state.rotationTarget - state.rotation, -1, 1);
-      wobble.value += (lag * settings.wobbleStrength - wobble.value) * settings.smoothing;
-
-      cards.forEach((card, index) => {
-        const slot =
-          THREE.MathUtils.euclideanModulo(index - state.rotation, cardCount) - cardCount / 2;
-        const angle = slot * settings.angleGap + Math.PI / 2;
-        card.position.set(
-          Math.cos(angle) * settings.radius,
-          slot * settings.verticalGap,
-          Math.sin(angle) * settings.radius,
-        );
-        card.rotation.y = Math.PI / 2 - angle;
-      });
-
-      renderer.render(scene, camera);
-    };
-
-    gsap.ticker.add(render);
-
-    return () => {
-      disposed = true;
-      observer.kill();
-      gsap.ticker.remove(render);
-      canvas.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("resize", resize);
-      for (const material of materials) {
-        material.dispose();
-      }
-      for (const texture of textures.values()) {
-        texture.dispose();
-      }
-      geometry.dispose();
-      renderer.dispose();
-    };
+    const updateColumns = () => setColumnsCount(getColumnCount(window.innerWidth));
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
+  const filteredImages = useMemo(
+    () => gallery.images.filter((image) => activeTab === "All" || getCategory(image) === activeTab),
+    [activeTab],
+  );
+  const columns = Array.from({ length: columnsCount }, (_, index) => ({
+    key: `gallery-column-${index}`,
+    height: 0,
+    images: [] as GalleryImage[],
+  }));
+
+  for (const image of filteredImages) {
+    const shortestColumn = columns.reduce((shortest, column) =>
+      column.height < shortest.height ? column : shortest,
+    );
+    shortestColumn.images.push(image);
+    const aspectRatio = imageAspectRatios[image.src] ?? getEstimatedAspectRatio(image);
+    shortestColumn.height += 1 / aspectRatio + 0.15;
+  }
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        root.querySelectorAll(`.${styles.card}`),
+        { y: 40, opacity: 0, scale: 0.96 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.65,
+          ease: "power3.out",
+          stagger: {
+            amount: Math.min(0.9, Math.max(0.35, (filteredImages.length / columnsCount) * 0.2)),
+            from: "start",
+          },
+        },
+      );
+      gsap.fromTo(
+        root.querySelectorAll(`.${styles.tab}`),
+        { y: -12, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, ease: "power2.out", stagger: 0.05 },
+      );
+    }, root);
+
+    return () => context.revert();
+  }, [columnsCount, filteredImages]);
+
+  useEffect(() => {
+    const tab = tabRefs.current[activeTabIndex];
+    if (!tab || !underlineRef.current) return;
+
+    gsap.to(underlineRef.current, {
+      x: tab.offsetLeft,
+      width: tab.offsetWidth,
+      duration: 0.4,
+      ease: "power3.inOut",
+    });
+  }, [activeTabIndex]);
+
+  const handleCardEnter = (event: MouseEvent<HTMLElement>) => {
+    const card = event.currentTarget;
+    gsap.to(card.querySelector(`.${styles.media}`), {
+      scale: 1.035,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+    gsap.to(card.querySelector(`.${styles.overlay}`), { opacity: 1, duration: 0.25 });
+    gsap.to(card.querySelectorAll(`.${styles.chip}`), {
+      y: 0,
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.05,
+      ease: "back.out(2)",
+    });
+  };
+
+  const handleCardLeave = (event: MouseEvent<HTMLElement>) => {
+    const card = event.currentTarget;
+    gsap.to(card.querySelector(`.${styles.media}`), {
+      scale: 1,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+    gsap.to(card.querySelector(`.${styles.overlay}`), { opacity: 0, duration: 0.2 });
+    gsap.to(card.querySelectorAll(`.${styles.chip}`), {
+      y: -8,
+      opacity: 0,
+      duration: 0.2,
+    });
+  };
+
+  const shareGallery = async (image: GalleryImage) => {
+    setActionError(null);
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: image.alt, url: window.location.href });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      console.error("Failed to share this gallery image:", error);
+      setActionError("Could not share this image. Please try again.");
+    }
+  };
+
   return (
-    <section className={styles.gallery} aria-label="Interactive image gallery">
-      <canvas
-        ref={canvasRef}
-        className={styles.canvas}
-        aria-label="Three-dimensional gallery. Scroll or swipe to rotate; use the arrow keys when focused."
-        tabIndex={0}
-      />
-      <ul className={styles.screenReaderOnly} aria-label="Gallery image descriptions">
-        {gallery.images.map((image) => (
-          <li key={image.src}>{image.alt}</li>
+    <section ref={rootRef} className={styles.gallery} aria-label="Gallery">
+      <nav className={styles.tabs} aria-label="Gallery categories">
+        {tabs.map((tab, index) => (
+          <button
+            key={tab}
+            ref={(element) => {
+              tabRefs.current[index] = element;
+            }}
+            className={`${styles.tab} ${tab === activeTab ? styles.activeTab : ""}`}
+            type="button"
+            aria-pressed={tab === activeTab}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
         ))}
-      </ul>
-      <p className={styles.hint} aria-hidden="true">
-        Scroll or swipe to explore
-      </p>
-      {renderError && (
+        <span ref={underlineRef} className={styles.underline} aria-hidden="true" />
+      </nav>
+
+      <div
+        className={styles.masonry}
+        style={{ gridTemplateColumns: `repeat(${columnsCount}, minmax(0, 1fr))` }}
+      >
+        {columns.map((column) => (
+          <div className={styles.column} key={column.key}>
+            {column.images.map((image) => (
+              <article
+                key={image.src}
+                className={styles.card}
+                onMouseEnter={handleCardEnter}
+                onMouseLeave={handleCardLeave}
+              >
+                <div className={styles.mediaWrap}>
+                  <img
+                    className={styles.media}
+                    src={image.src}
+                    alt={image.alt}
+                    onLoad={(event) => {
+                      const { naturalWidth, naturalHeight } = event.currentTarget;
+                      if (naturalWidth === 0 || naturalHeight === 0) return;
+                      const aspectRatio = naturalWidth / naturalHeight;
+                      setImageAspectRatios((current) =>
+                        current[image.src] === aspectRatio
+                          ? current
+                          : { ...current, [image.src]: aspectRatio },
+                      );
+                    }}
+                  />
+                  <div className={styles.overlay}>
+                    <button
+                      className={`${styles.chip} ${styles.share}`}
+                      type="button"
+                      aria-label={`Share ${image.alt}`}
+                      onClick={() => void shareGallery(image)}
+                    >
+                      ↗
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {actionError && (
         <p className={styles.error} role="alert">
-          {renderError}
+          {actionError}
         </p>
       )}
     </section>
