@@ -185,6 +185,8 @@ const gallery: Gallery = {
       src: "/images/gallery/horizontal-1.jpg",
       alt: "YatraFirst mobile bus booking screens for route search, trips, and offers",
       orientation: "horizontal",
+      projectSlug: "yatrafirst-bus-booking-app",
+      transitionName: "project-yatrafirst-bus-booking-app-primary",
     },
     {
       src: "/images/gallery/vertical-4.jpg",
@@ -195,6 +197,8 @@ const gallery: Gallery = {
       src: "/images/gallery/horizontal-3.jpg",
       alt: "KrishiMitra mobile app interface for Nepali farmers",
       orientation: "horizontal",
+      projectSlug: "krishimitra",
+      transitionName: "project-krishimitra-interface",
     },
     {
       src: "/images/gallery/vertical-1.jpg",
@@ -210,11 +214,29 @@ const gallery: Gallery = {
       src: "/images/gallery/horizontal-2.jpg",
       alt: "KrishiMitra app screens for crop advice, weather, and farmer support",
       orientation: "horizontal",
+      projectSlug: "krishimitra",
+      transitionName: "project-krishimitra-primary",
     },
     {
       src: "/images/gallery/horizontal-4.jpg",
       alt: "KrishiMitra agriculture app screens for crop advice and market information",
       orientation: "horizontal",
+      projectSlug: "krishimitra",
+      transitionName: "project-krishimitra-market",
+    },
+    {
+      src: "/images/gallery/GemiTech-01.jpg",
+      alt: "GemiTech gaming e-commerce homepage featuring a controller and product categories",
+      orientation: "horizontal",
+      projectSlug: "gemitech-ecommerce-design",
+      transitionName: "project-gemitech-ecommerce-design-primary",
+    },
+    {
+      src: "/images/projects/project-01/Solas.jpg.jpg",
+      alt: "Solas Health landing page concept with clinician profiles and editorial healthcare content",
+      orientation: "horizontal",
+      projectSlug: "solas-health-website-design",
+      transitionName: "project-solas-health-website-design-primary",
     },
     {
       src: "/images/gallery/vertical-3.jpg",

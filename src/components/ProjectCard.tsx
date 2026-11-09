@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ViewTransition } from "react";
 
 import { HiArrowUpRight } from "react-icons/hi2";
 
@@ -49,21 +51,40 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const cover = image || images[0];
   const year = publishedAt ? new Date(publishedAt).getFullYear() : undefined;
+  const projectSlug = href.match(/^\/work\/([^/?#]+)/)?.[1];
 
   return (
-    <a href={href} className={styles.card} aria-label={`View project: ${title}`}>
+    <Link
+      href={href}
+      className={styles.card}
+      aria-label={`View project: ${title}`}
+      transitionTypes={["nav-forward"]}
+    >
       <div className={styles.mediaWrap}>
-        {cover && (
-          <Image
-            src={cover}
-            alt={imageAlt || title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            priority={priority}
-            unoptimized
-            className={styles.thumb}
-          />
-        )}
+        {cover &&
+          (projectSlug ? (
+            <ViewTransition name={`project-${projectSlug}-primary`} share="morph" default="none">
+              <Image
+                src={cover}
+                alt={imageAlt || title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={priority}
+                unoptimized
+                className={styles.thumb}
+              />
+            </ViewTransition>
+          ) : (
+            <Image
+              src={cover}
+              alt={imageAlt || title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              priority={priority}
+              unoptimized
+              className={styles.thumb}
+            />
+          ))}
 
         <div className={styles.viewPill}>
           View Project
@@ -76,6 +97,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {year && <span className={styles.year}>{year}</span>}
       </div>
-    </a>
+    </Link>
   );
 };

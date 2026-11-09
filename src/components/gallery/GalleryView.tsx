@@ -2,6 +2,8 @@
 
 import { gallery } from "@/resources";
 import { gsap } from "gsap";
+import Link from "next/link";
+import { ViewTransition } from "react";
 import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./GalleryView.module.scss";
 
@@ -26,6 +28,14 @@ function isPhotography(image: GalleryImage) {
 
 function getCategory(image: GalleryImage): Exclude<GalleryTab, "All"> {
   return isPhotography(image) ? "Brand identity" : "App designs";
+}
+
+function getProjectTransitionName(image: GalleryImage) {
+  if (!image.projectSlug) return undefined;
+  return (
+    image.transitionName ??
+    `project-${image.projectSlug}-${image.src.replace(/[^a-zA-Z0-9_-]/g, "-")}`
+  );
 }
 
 export default function GalleryView() {
@@ -179,42 +189,62 @@ export default function GalleryView() {
       >
         {columns.map((column) => (
           <div className={styles.column} key={column.key}>
-            {column.images.map((image) => (
-              <article
-                key={image.src}
-                className={styles.card}
-                onMouseEnter={handleCardEnter}
-                onMouseLeave={handleCardLeave}
-              >
-                <div className={styles.mediaWrap}>
-                  <img
-                    className={styles.media}
-                    src={image.src}
-                    alt={image.alt}
-                    onLoad={(event) => {
-                      const { naturalWidth, naturalHeight } = event.currentTarget;
-                      if (naturalWidth === 0 || naturalHeight === 0) return;
-                      const aspectRatio = naturalWidth / naturalHeight;
-                      setImageAspectRatios((current) =>
-                        current[image.src] === aspectRatio
-                          ? current
-                          : { ...current, [image.src]: aspectRatio },
-                      );
-                    }}
-                  />
-                  <div className={styles.overlay}>
-                    <button
-                      className={`${styles.chip} ${styles.share}`}
-                      type="button"
-                      aria-label={`Share ${image.alt}`}
-                      onClick={() => void shareGallery(image)}
-                    >
-                      ↗
-                    </button>
+            {column.images.map((image) => {
+              const imageElement = (
+                <img
+                  className={styles.media}
+                  src={image.src}
+                  alt={image.alt}
+                  onLoad={(event) => {
+                    const { naturalWidth, naturalHeight } = event.currentTarget;
+                    if (naturalWidth === 0 || naturalHeight === 0) return;
+                    const aspectRatio = naturalWidth / naturalHeight;
+                    setImageAspectRatios((current) =>
+                      current[image.src] === aspectRatio
+                        ? current
+                        : { ...current, [image.src]: aspectRatio },
+                    );
+                  }}
+                />
+              );
+              const transitionName = getProjectTransitionName(image);
+
+              return (
+                <article
+                  key={image.src}
+                  className={styles.card}
+                  onMouseEnter={handleCardEnter}
+                  onMouseLeave={handleCardLeave}
+                >
+                  <div className={styles.mediaWrap}>
+                    {image.projectSlug && transitionName ? (
+                      <Link
+                        className={styles.imageLink}
+                        href={`/work/${image.projectSlug}?image=${encodeURIComponent(image.src)}`}
+                        transitionTypes={["nav-forward"]}
+                        aria-label={`View project: ${image.alt}`}
+                      >
+                        <ViewTransition name={transitionName} share="morph" default="none">
+                          {imageElement}
+                        </ViewTransition>
+                      </Link>
+                    ) : (
+                      imageElement
+                    )}
+                    <div className={styles.overlay}>
+                      <button
+                        className={`${styles.chip} ${styles.share}`}
+                        type="button"
+                        aria-label={`Share ${image.alt}`}
+                        onClick={() => void shareGallery(image)}
+                      >
+                        ↗
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         ))}
       </div>

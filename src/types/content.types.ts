@@ -244,5 +244,9 @@ export interface Gallery extends BasePageConfig {
     alt: string;
     /** Image orientation (horizontal/vertical) */
     orientation: string;
+    /** Matching case-study route, when this image represents a work project */
+    projectSlug?: string;
+    /** Shared transition identity for the gallery image and its project hero */
+    transitionName?: string;
   }>;
 }

@@ -3378,3 +3378,27 @@ html[data-theme="light"]
 @media (prefers-reduced-motion: reduce) {
   .text-marquee-track { animation: none; }
 }
+
+::view-transition-group(.morph) {
+  overflow: clip;
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-image-pair(.morph) {
+  isolation: isolate;
+}
+
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(.morph) {
+    animation-duration: 0s;
+  }
+}

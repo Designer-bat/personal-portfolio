@@ -1,26 +1,28 @@
-import { notFound } from "next/navigation";
+import { CustomMDX, ScrollToHash } from "@/components";
+import { Projects } from "@/components/work/Projects";
+import { about, baseURL, gallery, person, work } from "@/resources";
+import { formatDate } from "@/utils/formatDate";
+import { generatePageMetadata } from "@/utils/seo";
 import { getPosts } from "@/utils/utils";
 import {
-  Schema,
+  Avatar,
   AvatarGroup,
   Button,
   Column,
   Flex,
   Heading,
-  Media,
-  Text,
-  SmartLink,
-  Row,
-  Avatar,
   Line,
+  Media,
+  Row,
+  Schema,
+  SmartLink,
   Tag,
+  Text,
 } from "@once-ui-system/core";
-import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
-import { ScrollToHash, CustomMDX } from "@/components";
 import type { Metadata } from "next";
-import { Projects } from "@/components/work/Projects";
-import { generatePageMetadata } from "@/utils/seo";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -59,10 +61,13 @@ export async function generateMetadata({
 
 export default async function Project({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string | string[] }>;
+  searchParams: Promise<{ image?: string | string[] }>;
 }) {
   const routeParams = await params;
+  const queryParams = await searchParams;
   const slugPath = Array.isArray(routeParams.slug)
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
@@ -72,6 +77,14 @@ export default async function Project({
   if (!post) {
     notFound();
   }
+
+  const requestedImage = typeof queryParams.image === "string" ? queryParams.image : undefined;
+  const galleryImage = gallery.images.find(
+    (image) => image.src === requestedImage && image.projectSlug === post.slug,
+  );
+  const projectImage = galleryImage?.src ?? post.metadata.images[0];
+  const projectImageAlt = galleryImage?.alt || post.metadata.imageAlt || post.metadata.title;
+  const projectTransitionName = galleryImage?.transitionName ?? `project-${post.slug}-primary`;
 
   const avatars =
     post.metadata.team?.map((person) => ({
@@ -98,9 +111,14 @@ export default async function Project({
         }}
       />
       <Column maxWidth="s" gap="16" horizontal="center" align="center">
-        <SmartLink href="/work">
-          <Text variant="label-strong-m">Projects</Text>
-        </SmartLink>
+        <Row gap="m" vertical="center">
+          <Link href="/work" transitionTypes={["nav-back"]}>
+            <Text variant="label-strong-m">← Projects</Text>
+          </Link>
+          <Link href={gallery.path} transitionTypes={["nav-back"]}>
+            <Text variant="label-strong-m">Gallery</Text>
+          </Link>
+        </Row>
         <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
           {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
         </Text>
@@ -140,14 +158,16 @@ export default async function Project({
           </Text>
         </Row>
       </Row>
-      {post.metadata.images.length > 0 && (
-        <Media
-          priority
-          aspectRatio="16 / 9"
-          radius="m"
-          alt={post.metadata.imageAlt || post.metadata.title}
-          src={post.metadata.images[0]}
-        />
+      {projectImage && (
+        <ViewTransition name={projectTransitionName} share="morph" default="none">
+          <Media
+            priority
+            aspectRatio="original"
+            radius="m"
+            alt={projectImageAlt}
+            src={projectImage}
+          />
+        </ViewTransition>
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <CustomMDX source={post.content} />
