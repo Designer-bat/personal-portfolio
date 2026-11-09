@@ -3,9 +3,7 @@
   "version": "2.3.0",
   "scripts": {
     "dev": "next dev --webpack",
-    "export": "next export",
     "build": "next build",
-    "build:cloudflare": "npx @opennextjs/cloudflare build",
     "biome-write": "npx @biomejs/biome format --write .",
     "start": "next start",
     "lint": "next lint"
@@ -33,7 +31,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@opennextjs/cloudflare": "^1.20.2",
     "@types/cookie": "^0.6.0",
     "@types/matter-js": "^0.20.2",
     "@types/node": "^20.17.30",
@@ -50,7 +47,6 @@
     "sharp@0.35.2": true,
     "sharp@0.35.3": true,
     "sharp@0.33.5": true,
-    "workerd@1.20260801.1": true,
     "@biomejs/biome@1.9.4": true,
     "@parcel/watcher@2.5.1": true
   }

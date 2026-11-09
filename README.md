@@ -24,8 +24,6 @@ Create a production build:
 
 ```bash
 npm run build
-# optionally export static files
-npm run export
 ```
 
 Run the production server:
@@ -43,37 +41,17 @@ npx @biomejs/biome format --write .
 
 ## Deployment
 
-This project supports deployment via GitHub Actions on Linux using Cloudflare Workers and OpenNext.
+Vercel builds and deploys this Next.js app automatically when the repository is connected to the Vercel project.
 
-### GitHub Actions deploy workflow
-A deploy workflow is available at `.github/workflows/deploy-cloudflare.yml`.
+Configure the Vercel project with:
 
-#### Required secrets
-Set the following GitHub Actions secrets in your repository settings:
+- **Framework Preset:** Next.js (detected automatically)
+- **Production Branch:** `main`
+- **Build Command:** `npm run build`
+- **Install Command:** `npm install` (or Vercel's default)
+- **Output Directory:** leave at the Next.js default
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-Optional secrets:
-
-- `CLOUDFLARE_ZONE_ID`
-- `WRANGLER_ENV`
-
-#### How it works
-The workflow installs dependencies, runs:
-
-```bash
-npm run build
-```
-
-and then deploys with:
-
-```bash
-npx wrangler@latest deploy --account-id "$CLOUDFLARE_ACCOUNT_ID"
-```
-
-If `CLOUDFLARE_ZONE_ID` or `WRANGLER_ENV` are set, they are appended automatically.
-
+Pushes to `main` trigger production deployments; pull requests receive Vercel preview deployments. No deployment GitHub Action or custom `vercel.json` is needed.
 ## Contributing
 
 Feel free to open issues or PRs. For local changes, follow the development steps above.
@@ -92,5 +70,4 @@ See the project `LICENSE` file for license details.
 Add screenshots by placing images in `public/images/` and reference them below.
 
 ![Screenshot](public/images/screenshot.png)
-
 
