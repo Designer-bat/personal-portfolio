@@ -226,7 +226,7 @@ export interface About extends BasePageConfig {
 export interface Blog extends BasePageConfig {}
 
 /**
- * Work/projects page configuration.
+  * Work/Projects page configuration.
  * @description Configuration for the Work/Projects page, including metadata and navigation label.
  */
 export interface Work extends BasePageConfig {}

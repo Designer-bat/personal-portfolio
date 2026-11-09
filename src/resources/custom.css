@@ -3301,9 +3301,7 @@ html[data-theme="light"]
 
 }
 
-/* =====================================================
-   TEXT MARQUEE (ticker band)
-===================================================== */
+
 
 .text-marquee {
   --marquee-bg: var(--pf-panel);

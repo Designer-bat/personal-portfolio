@@ -107,9 +107,7 @@ export default function Home() {
         }}
       />
 
-      {/* =================================================
-          HERO (UNCHANGED)
-      ================================================= */}
+      {}
 
       <section className="reference-hero">
         <div className="reference-hero-inner">

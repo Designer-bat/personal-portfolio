@@ -1,5 +1,4 @@
 "use client";
-
 import { gallery } from "@/resources";
 import { gsap } from "gsap";
 import Link from "next/link";

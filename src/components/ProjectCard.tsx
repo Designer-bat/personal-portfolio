@@ -29,17 +29,11 @@ interface ProjectCardProps {
   likes?: number;
   /** Publication date used to derive the project year */
   publishedAt?: string;
-  /** Gives the cover image fetch priority (use for the first cards) */
+  
   priority?: boolean;
 }
 
-/**
- * Behance-inspired project card for the work grid.
- *
- * The whole card is a single link; hovering scales the cover slightly,
- * lifts the card, and reveals a "View Project" pill on the image.
- * Only the title and publish year are shown below the cover.
- */
+
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
   image,
